@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8">
+  <title>NCIT</title>
+</head>
+<body>
+
+<div class="container" id="mainContent">
+
+  <div class="row">
+
+    <div class="col-sm-2">
+      <div th:insert="fragments/sidebar.html"></div>
+    </div>
+
+    <div class="col-sm-8">
+      <div layout:fragment="content"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer th:insert="fragments/footer.html"> </footer>
+
+</body>
+</html>

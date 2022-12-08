@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NCIT</title>
+    <link rel="stylesheet" th:href="@{~/css/sidebar.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+<div class="sidenav">
+    <ul>
+        <li> <a href="#" class="active">  Book Rental System </a></li>
+        <li> <a href="#"> Master Data </a> </li>
+        <li> <a th:href="@{/author}">  Author Setup </a> </li>
+        <li> <a href="#">  Category Setup </a> </li>
+        <li> <a th:href="@{/customer}">  Customer Setup </a> </li>
+        <li> <a  th:href="@{/book}">   Book Setup </a> </li>
+        <li> <a href="#"> Transcation </a> </li>
+        <li> <a href="#"> Rent a Book </a> </li>
+        <li> <a href="#"> Return a Book </a> </li>
+
+
+    </ul>
+
+</div>
+
+<div class="main">
+
+</div>
+</body>
+</html>

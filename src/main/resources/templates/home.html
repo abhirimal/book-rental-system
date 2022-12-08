@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{~/css/home.css}">
+    <title>NCIT</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <br>
+    <h1 style="text-align: center"> Welcome to Nepal College of Information Technology </h1>
+<!--    <div style="display: flex;justify-content: center">-->
+<!--        <img src="https://ncit.edu.np/images/logo.png" alt="Image" >-->
+<!--    </div>-->
+</div>
+
+
+<!--can add fragments manually like this too but it will not be efficient in large programs-->
+<!--<header th:insert="fragments/navbar.html"> </header>-->
+<!--<footer th:insert="fragments/footer.html"> </footer>-->
+
+
+</body>
+</html>
