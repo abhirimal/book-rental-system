@@ -31,5 +31,10 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepo.findAll();
     }
 
+    @Override
+    public void deleteCategory(Integer id) {
+        categoryRepo.deleteById(id);
+    }
+
 
 }

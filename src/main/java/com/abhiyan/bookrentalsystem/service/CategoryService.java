@@ -10,4 +10,6 @@ public interface CategoryService {
     public void saveCategory(CategoryDto categoryDto);
 
     public List<Category> viewCategories();
+
+    public void deleteCategory(Integer id);
 }

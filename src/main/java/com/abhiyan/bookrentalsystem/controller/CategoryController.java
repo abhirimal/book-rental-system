@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -51,5 +52,11 @@ public class CategoryController {
         List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
         model.addAttribute("categoryDto",categoryDto);
         return "category/viewCategory";
+    }
+
+    @GetMapping("/delete-category/{id}")
+    public String deleteCategory(@PathVariable Integer id){
+        categoryService.deleteCategory(id);
+        return "redirect:/view-categories";
     }
 }

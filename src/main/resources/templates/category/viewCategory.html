@@ -33,14 +33,14 @@
             <tr th:each="categoryDto : ${categoryDto}">
                 <td th:text="${categoryDto.name}"></td>
                 <td th:text="${categoryDto.description}"></td>
-<!--                <td>-->
+                <td>
 <!--                    <a th:href="@{/edit-category/{id}(id=${category.id})}">-->
 <!--                        <button type="submit" class="btn btn-primary"> Update</button>-->
 <!--                    </a>-->
-<!--                    <a th:href="@{/delete-category/{id}(id=${category.id})}">-->
-<!--                        <button type="submit" class="btn btn-danger"> Delete</button>-->
-<!--                    </a>-->
-<!--                </td>-->
+                    <a th:href="@{/delete-category/{id}(id=${categoryDto.id})}">
+                        <button type="submit" class="btn btn-danger"> Delete</button>
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
