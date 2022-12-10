@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <title>NCIT</title>
     <link rel="stylesheet" th:href="@{~/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{~/css/home.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
 <div class="sidenav">
     <ul>
-        <li> <a href="#" class="active">  Book Rental System </a></li>
+        <li> <a th:href="@{/}" class="active">  Book Rental System </a></li>
         <li> <a href="#"> Master Data </a> </li>
-        <li> <a th:href="@{/save-author/new}">  Author Setup </a> </li>
+        <li> <a th:href="@{/view-authors}">  Author Setup </a> </li>
         <li> <a href="#">  Category Setup </a> </li>
         <li> <a th:href="@{/}">  Customer Setup </a> </li>
         <li> <a  th:href="@{/}">   Book Setup </a> </li>

@@ -26,16 +26,26 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllAuthors() {
-        return null;
+        return authorRepo.findAll();
     }
 
     @Override
-    public Author update(Author author) {
-        return null;
+    public Author editAuthor(Integer id) {
+        return authorRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Author updateAuthor(Integer id, Author author) {
+        Author existingAuthor = authorRepo.findById(id).orElse(null);
+        existingAuthor.setName(author.getName());
+        existingAuthor.setEmail(author.getEmail());
+        existingAuthor.setMobile_number(author.getMobile_number());
+        authorRepo.save(existingAuthor);
+        return existingAuthor;
     }
 
     @Override
     public void deleteAuthorById(Integer id) {
-
+        authorRepo.deleteById(id);
     }
 }

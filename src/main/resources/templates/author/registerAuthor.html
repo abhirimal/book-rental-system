@@ -14,11 +14,13 @@
 
 <div layout:fragment="content">
     <div class="container" >
+        <br>
+        <br>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
                 <h1 class="text-center"> Add new Author </h1>
                 <div class="card-body">
-                    <form th:action="@{/save-author}" th:object="${author}" method="POST">
+                    <form th:action="@{/save-author/new}" th:object="${author}" method="POST">
                         <div class="form-group">
                             <label> Author Full Name </label>
                             <input

@@ -10,7 +10,10 @@ public interface AuthorService {
 
     List<Author> getAllAuthors();
 
-    Author update(Author author);
+    Author editAuthor(Integer id);
+
+
+    Author updateAuthor(Integer id, Author author);
 
     void deleteAuthorById(Integer id);
 }
