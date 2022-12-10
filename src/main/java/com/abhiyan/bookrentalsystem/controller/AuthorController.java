@@ -36,8 +36,8 @@ public class AuthorController {
                              BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
-            System.out.println("Something went wrong");
-            bindingResult.getAllErrors().forEach(a-> System.out.println(a));
+//            System.out.println("Something went wrong");
+//            bindingResult.getAllErrors().forEach(a-> System.out.println(a));
             model.addAttribute("authorDto",authorDto );
             return "author/registerAuthor";
         }
