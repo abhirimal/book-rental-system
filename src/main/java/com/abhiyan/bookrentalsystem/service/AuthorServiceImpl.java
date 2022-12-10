@@ -1,5 +1,7 @@
 package com.abhiyan.bookrentalsystem.service;
 
+import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
+import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import org.springframework.stereotype.Service;
@@ -10,18 +12,25 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepo authorRepo;
+    private final AuthorDtoConverter authorDtoConverter;
 
-    public AuthorServiceImpl(AuthorRepo authorRepo) {
+
+    public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter) {
         this.authorRepo = authorRepo;
+        this.authorDtoConverter = authorDtoConverter;
     }
 
     @Override
-    public void saveAuthorDetails(Author author) {
-        Author newAuthor = new Author();
-        newAuthor.setName(author.getName());
-        newAuthor.setEmail(author.getEmail());
-        newAuthor.setMobile_number(author.getMobile_number());
+    public void saveAuthorDetails(AuthorDto authorDto) {
+        Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
         authorRepo.save(newAuthor);
+
+        // or we can do this way
+        // Author newAuthor = new Author();
+        // newAuthor.setName(authorDto.getName());
+        // newAuthor.setEmail(authorDto.getEmail());
+        // newAuthor.setMobile_number(authorDto.getMobile_number());
+        // authorRepo.save(newAuthor);
     }
 
     @Override
@@ -35,13 +44,14 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author updateAuthor(Integer id, Author author) {
+    public AuthorDto updateAuthor(Integer id, AuthorDto authorDto) {
         Author existingAuthor = authorRepo.findById(id).orElse(null);
-        existingAuthor.setName(author.getName());
-        existingAuthor.setEmail(author.getEmail());
-        existingAuthor.setMobile_number(author.getMobile_number());
+        existingAuthor.setName(authorDto.getName());
+        existingAuthor.setEmail(authorDto.getEmail());
+        existingAuthor.setMobile_number(authorDto.getMobile_number());
         authorRepo.save(existingAuthor);
-        return existingAuthor;
+
+        return authorDtoConverter.entityToDto(existingAuthor);
     }
 
     @Override
