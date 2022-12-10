@@ -39,8 +39,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author editAuthor(Integer id) {
-        return authorRepo.findById(id).orElse(null);
+    public AuthorDto editAuthor(Integer id) {
+        Author author = authorRepo.findById(id).orElse(null);
+        return authorDtoConverter.entityToDto(author);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class AuthorServiceImpl implements AuthorService {
         Author existingAuthor = authorRepo.findById(id).orElse(null);
         existingAuthor.setName(authorDto.getName());
         existingAuthor.setEmail(authorDto.getEmail());
-        existingAuthor.setMobile_number(authorDto.getMobile_number());
+        existingAuthor.setMobileNumber(authorDto.getMobileNumber());
         authorRepo.save(existingAuthor);
 
         return authorDtoConverter.entityToDto(existingAuthor);

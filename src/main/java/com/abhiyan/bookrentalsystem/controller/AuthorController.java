@@ -3,32 +3,44 @@ package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
-import com.abhiyan.bookrentalsystem.service.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.abhiyan.bookrentalsystem.service.AuthorServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class AuthorController {
 
-    @Autowired
-    AuthorService authorService;
+    private final AuthorServiceImpl authorService;
 
-    @Autowired
-    AuthorDtoConverter authorDtoConverter;
+    private final AuthorDtoConverter authorDtoConverter;
+
+    public AuthorController(AuthorServiceImpl authorService, AuthorDtoConverter authorDtoConverter) {
+        this.authorService = authorService;
+        this.authorDtoConverter = authorDtoConverter;
+    }
+
 
     @GetMapping("/save-author")
     public String saveAuthor(Model model){
-        AuthorDto author = new AuthorDto();
-        model.addAttribute("author", author);
+        AuthorDto authorDto = new AuthorDto();
+        model.addAttribute("authorDto", authorDto);
         return "author/registerAuthor";
     }
 
     @PostMapping("/save-author/new")
-    public String saveAuthor(@ModelAttribute AuthorDto authorDto){
+    public String saveAuthor(@Valid @ModelAttribute("authorDto") AuthorDto authorDto,
+                             BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()){
+            System.out.println("Something went wrong");
+            bindingResult.getAllErrors().forEach(a-> System.out.println(a));
+            model.addAttribute("authorDto",authorDto );
+            return "author/registerAuthor";
+        }
         authorService.saveAuthorDetails(authorDto);
         return "redirect:/view-authors";
     }

@@ -34,7 +34,7 @@
             <tr th:each="author: ${author}">
                 <td th:text="${author.name}"></td>
                 <td th:text="${author.email}"></td>
-                <td th:text="${author.mobile_number}"></td>
+                <td th:text="${author.mobileNumber}"></td>
                 <td>
                     <a th:href="@{/edit-author/{id}(id=${author.id})}">
                         <button type="submit" class="btn btn-primary"> Update</button>

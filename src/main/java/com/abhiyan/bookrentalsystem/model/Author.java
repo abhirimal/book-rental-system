@@ -26,5 +26,5 @@ public class Author {
 
     private String email;
 
-    private String mobile_number;
+    private String mobileNumber;
 }

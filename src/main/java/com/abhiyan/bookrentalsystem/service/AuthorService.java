@@ -11,7 +11,7 @@ public interface AuthorService {
 
     List<Author> getAllAuthors();
 
-    Author editAuthor(Integer id);
+    AuthorDto editAuthor(Integer id);
 
 
     AuthorDto updateAuthor(Integer id, AuthorDto authorDto);

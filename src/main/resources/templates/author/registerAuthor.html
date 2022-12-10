@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
+          xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -13,14 +13,16 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="container" >
+
+    <div class="container">
         <br>
         <br>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
                 <h1 class="text-center"> Add new Author </h1>
+
                 <div class="card-body">
-                    <form th:action="@{/save-author/new}" th:object="${author}" method="POST">
+                    <form th:action="@{/save-author/new}" th:object="${authorDto}" method="POST">
                         <div class="form-group">
                             <label> Author Full Name </label>
                             <input
@@ -30,6 +32,7 @@
                                     class="form-control"
                                     placeholder="Enter Author Full Name"
                             />
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
                         </div>
                         <div class="form-group">
                             <label> Author Email </label>
@@ -40,16 +43,18 @@
                                     class="form-control"
                                     placeholder="Enter Author Email"
                             />
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> Error </p>
                         </div>
                         <div class="form-group">
                             <label> Author Mobile Number </label>
                             <input
                                     type="text"
                                     name="authorNumber"
-                                    th:field="*{mobile_number}"
+                                    th:field="*{mobileNumber}"
                                     class="form-control"
                                     placeholder="Enter Author Mobile Number"
                             />
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('mobileNumber')}" th:errors="*{mobileNumber}"> Error </p>
                         </div>
 
                         <div>
@@ -61,7 +66,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 

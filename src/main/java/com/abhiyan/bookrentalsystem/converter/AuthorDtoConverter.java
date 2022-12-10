@@ -12,9 +12,10 @@ public class AuthorDtoConverter {
 
     public AuthorDto entityToDto(Author author){
         AuthorDto authorDto = new AuthorDto();
+        authorDto.setId(author.getId());
         authorDto.setName(author.getName());
         authorDto.setEmail(author.getEmail());
-        authorDto.setMobile_number(author.getMobile_number());
+        authorDto.setMobileNumber(author.getMobileNumber());
 
         return authorDto;
     }
@@ -23,7 +24,7 @@ public class AuthorDtoConverter {
         Author author = new Author();
         author.setName(authorDto.getName());
         author.setEmail(authorDto.getEmail());
-        author.setMobile_number(authorDto.getMobile_number());
+        author.setMobileNumber(authorDto.getMobileNumber());
 
         return author;
     }
