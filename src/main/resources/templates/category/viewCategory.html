@@ -17,32 +17,30 @@
 
         <div class="row" style="float: right">
             <div class="col-lg-3" >
-                <a th:href="@{/save-author}" class="btn btn-primary btn-sm mb-3"> Add New Author </a>
+                <a th:href="@{/add-category}" class="btn btn-primary btn-sm mb-3"> Add New Category </a>
             </div>
 
         </div>
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Author Name </th>
-                <th scope="col">Author Email </th>
-                <th scope="col">Phone Number </th>
+                <th scope="col">Category Name </th>
+                <th scope="col">Category Description </th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="author: ${author}">
-                <td th:text="${author.name}"></td>
-                <td th:text="${author.email}"></td>
-                <td th:text="${author.mobileNumber}"></td>
-                <td>
-                    <a th:href="@{/edit-author/{id}(id=${author.id})}">
-                        <button type="submit" class="btn btn-primary"> Update</button>
-                    </a>
-                    <a th:href="@{/delete-author/{id}(id=${author.id})}">
-                        <button type="submit" class="btn btn-danger"> Delete</button>
-                    </a>
-                </td>
+            <tr th:each="categoryDto : ${categoryDto}">
+                <td th:text="${categoryDto.name}"></td>
+                <td th:text="${categoryDto.description}"></td>
+<!--                <td>-->
+<!--                    <a th:href="@{/edit-category/{id}(id=${category.id})}">-->
+<!--                        <button type="submit" class="btn btn-primary"> Update</button>-->
+<!--                    </a>-->
+<!--                    <a th:href="@{/delete-category/{id}(id=${category.id})}">-->
+<!--                        <button type="submit" class="btn btn-danger"> Delete</button>-->
+<!--                    </a>-->
+<!--                </td>-->
             </tr>
             </tbody>
         </table>

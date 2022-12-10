@@ -6,6 +6,8 @@ import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService{
 
@@ -22,6 +24,11 @@ public class CategoryServiceImpl implements CategoryService{
     public void saveCategory(CategoryDto categoryDto) {
         Category category = categoryDtoConverter.dtoToEntity(categoryDto);
         categoryRepo.save(category);
+    }
+
+    @Override
+    public List<Category> viewCategories() {
+        return categoryRepo.findAll();
     }
 
 
