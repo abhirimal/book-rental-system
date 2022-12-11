@@ -30,14 +30,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="categoryDto : ${categoryDto}">
-                <td th:text="${categoryDto.name}"></td>
-                <td th:text="${categoryDto.description}"></td>
+            <tr th:each="category : ${category}">
+                <td th:text="${category.name}"></td>
+                <td th:text="${category.description}"></td>
                 <td>
-<!--                    <a th:href="@{/edit-category/{id}(id=${category.id})}">-->
-<!--                        <button type="submit" class="btn btn-primary"> Update</button>-->
-<!--                    </a>-->
-                    <a th:href="@{/delete-category/{id}(id=${categoryDto.id})}">
+                    <a th:href="@{/edit-category/{id}(id=${category.id})}">
+                        <button type="submit" class="btn btn-primary"> Update</button>
+                    </a>
+                    <a th:href="@{/delete-category/{id}(id=${category.id})}">
                         <button type="submit" class="btn btn-danger"> Delete</button>
                     </a>
                 </td>

@@ -50,7 +50,7 @@ public class CategoryController {
     public String viewAllCategories(Model model){
         List<Category> categories = categoryService.viewCategories();
         List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
-        model.addAttribute("categoryDto",categoryDto);
+        model.addAttribute("category",categoryDto);
         return "category/viewCategory";
     }
 
@@ -59,4 +59,26 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return "redirect:/view-categories";
     }
+
+    @GetMapping("/edit-category/{id}")
+    public String editCategory(@PathVariable Integer id, Model model){
+        CategoryDto categoryDto = categoryService.editCategory(id);
+        model.addAttribute("category",categoryDto);
+        return "category/updateCategory";
+    }
+
+    @PostMapping("/update-category/{id}")
+    public String updateCategory(@PathVariable Integer id, @Valid @ModelAttribute("category") CategoryDto categoryDto,
+                                 BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("category", categoryDto);
+            return "category/updateCategory";
+        }
+        categoryService.updateCategory(id,categoryDto);
+        return "redirect:/view-categories";
+
+    }
+
+
 }

@@ -36,5 +36,22 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepo.deleteById(id);
     }
 
+    @Override
+    public CategoryDto editCategory(Integer id) {
+        Category category = categoryRepo.findById(id).orElse(null);
+        CategoryDto categoryDto = categoryDtoConverter.entityToDto(category);
+        return categoryDto;
+    }
+
+    @Override
+    public CategoryDto updateCategory(Integer id, CategoryDto categoryDto) {
+        Category existingCategory = categoryRepo.findById(id).orElse(null);
+        existingCategory.setName(categoryDto.getName());
+        existingCategory.setDescription(categoryDto.getDescription());
+        categoryRepo.save(existingCategory);
+
+        return categoryDtoConverter.entityToDto(existingCategory);
+    }
+
 
 }

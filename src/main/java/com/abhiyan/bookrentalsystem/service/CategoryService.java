@@ -12,4 +12,8 @@ public interface CategoryService {
     public List<Category> viewCategories();
 
     public void deleteCategory(Integer id);
+
+    public CategoryDto editCategory(Integer id);
+
+    public CategoryDto updateCategory(Integer id, CategoryDto categoryDto);
 }
