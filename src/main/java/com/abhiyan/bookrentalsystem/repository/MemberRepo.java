@@ -1,4 +1,7 @@
 package com.abhiyan.bookrentalsystem.repository;
 
-public interface MemberRepo {
+import com.abhiyan.bookrentalsystem.model.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepo extends JpaRepository <Member,Integer> {
 }

@@ -80,7 +80,7 @@
                 <select class="form-select" th:field="*{categoryId}">
                     <option selected th:value="${null}">Select Category</option>
                     <option th:each="categoryDto : ${categoryDto}" th:text="${categoryDto.name}"
-                            th:value="categoryDto.id"> </option>
+                            th:value="${categoryDto.id}"> </option>
 
                 </select>
                 <!--                <input-->
