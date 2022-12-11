@@ -44,6 +44,6 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public void deleteMember(Integer id) {
-
+    memberRepo.deleteById(id);
     }
 }

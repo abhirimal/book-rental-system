@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -44,5 +45,11 @@ public class MemberController {
     public String viewAllMembers(Model model){
         model.addAttribute("member",memberService.viewMembers());
         return "member/viewMembers";
+    }
+
+    @GetMapping("/delete-member/{id}")
+    public String deleteMemberById(@PathVariable Integer id){
+        memberService.deleteMember(id);
+        return "redirect:/view-members";
     }
 }
