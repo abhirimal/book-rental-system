@@ -4,65 +4,73 @@
       xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Book Rental System</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Book Rental System</title>
 </head>
 
 <body>
 
 <div layout:fragment="content">
-  <div class="container" >
-    <br>
-    <br>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-        <h1 class="text-center"> Add new Author </h1>
-        <div class="card-body">
-          <form th:action="@{/update-author/{id}(id=${author.id})}" th:object="${author}" method="POST">
-            <div class="form-group">
-              <label> Author Full Name </label>
-              <input
-                      type="text"
-                      name="authorName"
-                      th:field="*{name}"
-                      class="form-control"
-                      placeholder="Enter Author Full Name"
-              />
-            </div>
-            <div class="form-group">
-              <label> Author Email </label>
-              <input
-                      type="text"
-                      name="authorEmail"
-                      th:field="*{email}"
-                      class="form-control"
-                      placeholder="Enter Author Email"
-              />
-            </div>
-            <div class="form-group">
-              <label> Author Mobile Number </label>
-              <input
-                      type="text"
-                      name="authorNumber"
-                      th:field="*{mobileNumber}"
-                      class="form-control"
-                      placeholder="Enter Author Mobile Number"
-              />
-            </div>
+    <div class="container">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center"> Add new Author </h1>
+                <div class="card-body">
+                    <form th:action="@{/update-author/{id}(id=${author.id})}" th:object="${author}" method="POST">
+                        <div class="form-group">
+                            <label> Author Full Name </label>
+                            <input
+                                    type="text"
+                                    name="authorName"
+                                    th:field="*{name}"
+                                    class="form-control"
+                                    placeholder="Enter Author Full Name"
+                            />
+                        </div>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                            Error </p>
 
-            <div>
-              <button type="submit" class="btn btn-primary">
-                Submit
-              </button>
+                        <div class="form-group">
+                            <label> Author Email </label>
+                            <input
+                                    type="text"
+                                    name="authorEmail"
+                                    th:field="*{email}"
+                                    class="form-control"
+                                    placeholder="Enter Author Email"
+                            />
+                        </div>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            Error </p>
+
+                        <div class="form-group">
+                            <label> Author Mobile Number </label>
+                            <input
+                                    type="text"
+                                    name="authorNumber"
+                                    th:field="*{mobileNumber}"
+                                    class="form-control"
+                                    placeholder="Enter Author Mobile Number"
+                            />
+                        </div>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('mobileNumber')}"
+                           th:errors="*{mobileNumber}"> Error </p>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
 
-  </div>
+    </div>
 </div>
 
 </body>
