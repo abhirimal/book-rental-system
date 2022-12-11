@@ -61,8 +61,13 @@ public class AuthorController {
     }
 
     @PostMapping("/update-author/{id}")
-    public String updateAuthor(Model model, @PathVariable int id,@ModelAttribute AuthorDto authorDto ){
-        model.addAttribute("author",authorService.updateAuthor(id,authorDto));
+    public String updateAuthor(Model model, @PathVariable int id,@Valid @ModelAttribute("author") AuthorDto authorDto,BindingResult bindingResult  ){
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("author",authorDto);
+            return "author/updateAuthor";
+        }
+        authorService.updateAuthor(id,authorDto);
         return "redirect:/view-authors";
     }
 

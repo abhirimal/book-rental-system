@@ -11,6 +11,7 @@
 
 <div layout:fragment="content">
     <div class="container">
+        <br>
         <div class="row">
             <h1> All Authors</h1>
         </div>
@@ -37,10 +38,10 @@
                 <td th:text="${author.mobileNumber}"></td>
                 <td>
                     <a th:href="@{/edit-author/{id}(id=${author.id})}">
-                        <button type="submit" class="btn btn-primary"> Update</button>
+                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>
                     </a>
                     <a th:href="@{/delete-author/{id}(id=${author.id})}">
-                        <button type="submit" class="btn btn-danger"> Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>
                     </a>
                 </td>
             </tr>

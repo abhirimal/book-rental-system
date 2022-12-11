@@ -11,8 +11,9 @@
 
 <div layout:fragment="content">
     <div class="container">
+        <br>
         <div class="row">
-            <h1> All Authors</h1>
+            <h1> All Categories </h1>
         </div>
 
         <div class="row" style="float: right">
@@ -24,9 +25,9 @@
         <table class="table">
             <thead class="thead-light">
             <tr>
-                <th scope="col">Category Name </th>
-                <th scope="col">Category Description </th>
-                <th scope="col">Actions</th>
+                <th scope="colgroup">Category Name </th>
+                <th scope="colgroup">Category Description </th>
+                <th scope="colgroup">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -35,10 +36,10 @@
                 <td th:text="${category.description}"></td>
                 <td>
                     <a th:href="@{/edit-category/{id}(id=${category.id})}">
-                        <button type="submit" class="btn btn-primary"> Update</button>
+                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>
                     </a>
                     <a th:href="@{/delete-category/{id}(id=${category.id})}">
-                        <button type="submit" class="btn btn-danger"> Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>
                     </a>
                 </td>
             </tr>
