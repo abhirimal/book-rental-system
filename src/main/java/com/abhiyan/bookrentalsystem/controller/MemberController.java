@@ -40,5 +40,9 @@ public class MemberController {
         return "redirect:/view-members";
     }
 
-
+    @GetMapping("/view-members")
+    public String viewAllMembers(Model model){
+        model.addAttribute("member",memberService.viewMembers());
+        return "member/viewMembers";
+    }
 }

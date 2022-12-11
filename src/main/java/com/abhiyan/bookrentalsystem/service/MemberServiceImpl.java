@@ -27,7 +27,9 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<MemberDto> viewMembers() {
-        return null;
+        List<Member> members = memberRepo.findAll();
+        List<MemberDto> memberDtos = memberDtoConverter.entityToDto(members);
+        return memberDtos;
     }
 
     @Override
