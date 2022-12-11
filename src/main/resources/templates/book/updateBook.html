@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Book Rental System</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+    <div class="container" >
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center"> Add new Author </h1>
+
+                <div class="card-body">
+                    <form th:action="@{/update-category/{id}(id=${category.id})}" th:object="${category}" method="POST">
+                        <div class="form-group">
+                            <label> Category Name </label>
+                            <input
+                                    type="text"
+                                    name="authorName"
+                                    th:field="*{name}"
+                                    class="form-control"
+                                    placeholder="Enter Category Name"
+                            />
+                        </div>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
+
+                        <div class="form-group">
+                            <label> Category Description </label>
+                            <input
+                                    type="text"
+                                    name="authorEmail"
+                                    th:field="*{description}"
+                                    class="form-control"
+                                    placeholder="Enter Category Description"
+                            />
+                        </div>
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Error </p>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

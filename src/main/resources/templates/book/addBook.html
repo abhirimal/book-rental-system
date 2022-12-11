@@ -17,47 +17,129 @@
     <div class="container">
         <br>
         <br>
+        <h1> Add New Book </h1>
+        <form class="row g-3" th:action="@{/add-book/new}" th:object="${book}" method="POST">
 
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class="text-center"> Add new Category </h1>
-
-                <div class="card-body">
-                    <form th:action="@{/add-category/new}" th:object="${categoryDto}" method="POST">
-                        <div class="form-group">
-                            <label> Category Name </label>
-                            <input
-                                    type="text"
-                                    name="authorName"
-                                    th:field="*{name}"
-                                    class="form-control"
-                                    placeholder="Enter Category Name"
-                            />
-                            <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
-                        </div>
-                        <div class="form-group">
-                            <label> Category Description </label>
-                            <input
-                                    type="text"
-                                    name="authorEmail"
-                                    th:field="*{description}"
-                                    class="form-control"
-                                    placeholder="Enter Description"
-                            />
-                            <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Error </p>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-primary">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            <div class="col-md-6">
+                <label class="form-label">Enter Book Name</label>
+                <input
+                        type="text"
+                        name="bookName"
+                        th:field="*{name}"
+                        class="form-control"
+                        placeholder="Enter Book Name"
+                />
             </div>
-        </div>
+            <div class="col-md-6">
+                <label class="form-label">ISBN</label>
+                <input
+                        type="text"
+                        name="ISBN"
+                        th:field="*{ISBN}"
+                        class="form-control"
+                        placeholder="Enter ISBN"
+                />
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Pages</label>
+                <input
+                        type="text"
+                        name="pages"
+                        th:field="*{noOfPages}"
+                        class="form-control"
+                        placeholder="Enter Number of Pages"
+                />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Rating</label>
+                <input
+                        type="text"
+                        name="rating"
+                        th:field="*{rating}"
+                        class="form-control"
+                        placeholder="Enter Rating"
+                />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Enter Stock</label>
+                <input
+                        type="text"
+                        name="stock"
+                        th:field="*{stockCount}"
+                        class="form-control"
+                        placeholder="Enter Stock"
+                />
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <label class="form-label">Category</label>
+                <select class="form-select" th:field="*{categoryId}">
+                    <option selected th:value="${null}">Select Category</option>
+                    <option th:each="categoryDto : ${categoryDto}" th:text="${categoryDto.name}"
+                            th:value="categoryDto.id"> </option>
+
+                </select>
+                <!--                <input-->
+                <!--                type="text"-->
+                <!--                name="categoryName"-->
+                <!--                th:field="*{category}"-->
+                <!--                class="form-control"-->
+                <!--                placeholder="Enter Category Name"-->
+                <!--                />-->
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Author</label>
+                <select class="form-select " size="3" multiple >
+                    <option selected th:value="${null}">Select Authors</option>
+                    <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}" th:value="authorDto.id"> </option>
+
+                </select>
+                <!--                <input-->
+                <!--                        type="text"-->
+                <!--                        name="authorName"-->
+                <!--                        th:field="*{author}"-->
+                <!--                        class="form-control"-->
+                <!--                        placeholder="Enter Author Name"-->
+                <!--                />-->
+            </div>
+
+            <div class="col-md-5">
+                <label class="form-label">Published Date</label>
+                <input
+                        type="date"
+                        name="publishedDate"
+                        th:field="*{publishedDate}"
+                        class="form-control"
+                />
+            </div>
+            <div class="col-md-7">
+                <label class="form-label"> Upload Photo </label>
+                <input
+                        type="file"
+                        class="form-control form-control-sm"
+                />
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div >
+                <button type="submit" class="btn btn-primary btn-sm mb-2">Save</button>
+                <button type="reset" class="btn btn-primary btn-sm mb-2">Reset</button>
+            </div>
+        </form>
     </div>
 </div>
+<script>
+    $('.col-md-5').datepicker({
 
+    })
+</script>
 </body>
 </html>

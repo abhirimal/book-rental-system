@@ -22,6 +22,8 @@ public class Book {
 
     String name;
 
+    Integer noOfPages;
+
     Integer ISBN;
 
     Double rating;
