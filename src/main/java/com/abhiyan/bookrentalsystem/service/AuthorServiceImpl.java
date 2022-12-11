@@ -14,7 +14,6 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepo authorRepo;
     private final AuthorDtoConverter authorDtoConverter;
 
-
     public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter) {
         this.authorRepo = authorRepo;
         this.authorDtoConverter = authorDtoConverter;
