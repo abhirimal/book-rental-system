@@ -1,8 +1,6 @@
 package com.abhiyan.bookrentalsystem.converter;
 
-import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
-import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.model.Member;
 import org.springframework.stereotype.Component;
 

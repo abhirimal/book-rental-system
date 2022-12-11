@@ -28,8 +28,8 @@ public class MemberDto {
     @NotBlank(message = "Mobile Number is required")
     @Length(min = 10, max = 10, message = "Phone number needs to be of 10 digits")
     @Pattern(regexp = "^[9]+[0-9]{9}$" ,message = "Phone number needs to be of 10 digits")
-    private String MobileNumber;
+    private String mobileNumber;
 
     @NotBlank(message = "Address is required")
-    private String Address;
+    private String address;
 }
