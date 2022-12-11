@@ -3,6 +3,7 @@ package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
+import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,4 +53,29 @@ public class MemberController {
         memberService.deleteMember(id);
         return "redirect:/view-members";
     }
+
+    @GetMapping("/edit-member/{id}")
+    public String editMember(@PathVariable Integer id, Model model){
+        model.addAttribute("member",memberService.editMember(id));
+        return "member/updateMember";
+    }
+
+    @PostMapping("/update-member/{id}")
+    public String updateMember(@PathVariable Integer id, @Valid @ModelAttribute MemberDto memberDto,
+                               BindingResult bindingResult,Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("member",memberDto);
+            return "member/updateMember";
+        }
+        memberService.updateMember(id, memberDto);
+        return "redirect:/view-members";
+    }
 }
+
+
+
+
+
+
+

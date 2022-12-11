@@ -34,12 +34,21 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDto editMember(Integer id) {
-        return null;
+        Member member = memberRepo.findById(id).orElse(null);
+        MemberDto memberDto = memberDtoConverter.entityToDto(member);
+        return memberDto;
     }
 
     @Override
     public MemberDto updateMember(Integer id, MemberDto memberDto) {
-        return null;
+        Member existingMember = memberRepo.findById(id).orElse(null);
+        existingMember.setName(memberDto.getName());
+        existingMember.setEmail(memberDto.getEmail());
+        existingMember.setAddress(memberDto.getAddress());
+        existingMember.setMobileNumber(memberDto.getMobileNumber());
+        memberRepo.save(existingMember);
+        return memberDto;
+
     }
 
     @Override

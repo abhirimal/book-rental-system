@@ -27,7 +27,7 @@
                 <h1 class="text-center"> Update Member </h1>
 
                 <div class="card-body">
-                    <form th:action="@{/save-member/new}" th:object="${member}" method="POST">
+                    <form th:action="@{/update-member/{id}(id=${member.id})}" th:object="${member}" method="POST">
                         <div class="form-group">
                             <label> Member Full Name </label>
                             <input
