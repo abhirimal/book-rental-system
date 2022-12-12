@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,7 +24,7 @@ public class Book {
 
     Integer noOfPages;
 
-    Integer ISBN;
+    Long isbn;
 
     Double rating;
 
@@ -42,8 +41,9 @@ public class Book {
 
     private List<Author> authors;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @ManyToOne
+    @JoinColumn(name = "category_id",
+        referencedColumnName = "id")
 
     private Category category;
 

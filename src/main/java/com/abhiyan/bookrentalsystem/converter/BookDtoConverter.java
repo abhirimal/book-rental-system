@@ -1,7 +1,6 @@
 package com.abhiyan.bookrentalsystem.converter;
 
 import com.abhiyan.bookrentalsystem.dto.BookDto;
-import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.model.Book;
 import org.springframework.stereotype.Controller;
 
@@ -15,7 +14,7 @@ public class BookDtoConverter {
         bookDto.setId(book.getId());
         bookDto.setName(book.getName());
         bookDto.setNoOfPages(book.getNoOfPages());
-        bookDto.setISBN(book.getISBN());
+        bookDto.setIsbn(book.getIsbn());
         bookDto.setRating(book.getRating());
 //        bookDto.setPublishedDate(book.getPublishedDate());
         bookDto.setPhoto(book.getPhoto());
@@ -28,7 +27,7 @@ public class BookDtoConverter {
         Book book = new Book();
         book.setName(bookDto.getName());
         book.setNoOfPages(bookDto.getNoOfPages());
-        book.setISBN(bookDto.getISBN());
+        book.setIsbn(bookDto.getIsbn());
         book.setRating(bookDto.getRating());
 //        book.setPublishedDate(bookDto.getPublishedDate());
         book.setPhoto(bookDto.getPhoto());

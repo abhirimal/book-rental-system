@@ -22,7 +22,8 @@ public class Category {
     String name;
 
     String description;
-    @OneToMany(mappedBy = "category")
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Book> bookList;
 
 }

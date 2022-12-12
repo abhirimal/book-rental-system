@@ -18,7 +18,7 @@ public interface BookService {
     BookDto editBook(Integer id);
 
 
-    BookDto updateBook(Integer id, BookDto bookDto);
+    BookDto updateBook(Integer id, BookDto bookDto) throws ParseException;
 
     void deleteBookById(Integer id);
 }

@@ -33,7 +33,7 @@
             <tbody>
             <tr th:each="book : ${book}">
                 <td th:text="${book.name}"></td>
-                <td th:text="${book.ISBN}"></td>
+                <td th:text="${book.isbn}"></td>
                 <td>
                     <a th:href="@{/edit-book/{id}(id=${book.id})}">
                         <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>

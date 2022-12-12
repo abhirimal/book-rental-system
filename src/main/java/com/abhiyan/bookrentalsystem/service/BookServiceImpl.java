@@ -2,8 +2,10 @@ package com.abhiyan.bookrentalsystem.service;
 
 import com.abhiyan.bookrentalsystem.converter.BookDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
+import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
+import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
 import com.abhiyan.bookrentalsystem.service.services.StringToDate;
@@ -21,10 +23,13 @@ public class BookServiceImpl implements BookService {
 
     private final CategoryRepo categoryRepo;
 
-    public BookServiceImpl(BookRepo bookRepo, BookDtoConverter bookDtoConverter, CategoryRepo categoryRepo) {
+    private final AuthorRepo authorRepo;
+
+    public BookServiceImpl(BookRepo bookRepo, BookDtoConverter bookDtoConverter, CategoryRepo categoryRepo, AuthorRepo authorRepo) {
         this.bookRepo = bookRepo;
         this.bookDtoConverter = bookDtoConverter;
         this.categoryRepo = categoryRepo;
+        this.authorRepo = authorRepo;
     }
 
     @Override
@@ -32,7 +37,7 @@ public class BookServiceImpl implements BookService {
         Book book = new Book();
         book.setName(bookDto.getName());
         book.setNoOfPages(bookDto.getNoOfPages());
-        book.setISBN(bookDto.getISBN());
+        book.setIsbn(bookDto.getIsbn());
         book.setRating(bookDto.getRating());
 
         StringToDate sDate = new StringToDate();
@@ -41,9 +46,12 @@ public class BookServiceImpl implements BookService {
 
         book.setPhoto(bookDto.getPhoto());
         book.setStockCount(bookDto.getStockCount());
-        System.out.println(bookDto.getCategoryId());
+
         Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
         book.setCategory(category);
+
+        List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
+        book.setAuthors(authors);
         bookRepo.save(book);
     }
 
@@ -56,12 +64,28 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto editBook(Integer id) {
-        return null;
+        Book book = bookRepo.findById(id).orElse(null);
+        BookDto bookDto = bookDtoConverter.entityToDto(book);
+        return bookDto;
     }
 
     @Override
-    public BookDto updateBook(Integer id, BookDto bookDto) {
-        return null;
+    public BookDto updateBook(Integer id, BookDto bookDto) throws ParseException {
+        Book book = bookRepo.findById(id).orElse(null);
+        book.setName(bookDto.getName());
+        book.setIsbn(bookDto.getIsbn());
+        book.setCategory(bookDto.getCategory());
+        book.setRating(bookDto.getRating());
+        book.setNoOfPages(bookDto.getNoOfPages());
+        book.setPhoto(bookDto.getPhoto());
+        book.setStockCount(bookDto.getStockCount());
+
+        StringToDate sDate = new StringToDate();
+        LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
+        book.setPublishedDate(date);
+        //        book.setAuthors(bookDto.getAuthor());
+        bookRepo.save(book);
+        return bookDto;
     }
 
     @Override

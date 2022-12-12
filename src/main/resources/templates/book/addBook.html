@@ -29,16 +29,18 @@
                         class="form-control"
                         placeholder="Enter Book Name"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
             </div>
             <div class="col-md-6">
                 <label class="form-label">ISBN</label>
                 <input
                         type="text"
                         name="ISBN"
-                        th:field="*{ISBN}"
+                        th:field="*{isbn}"
                         class="form-control"
                         placeholder="Enter ISBN"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"> Error </p>
             </div>
 
             <div class="col-md-4">
@@ -50,6 +52,8 @@
                         class="form-control"
                         placeholder="Enter Number of Pages"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfPages')}" th:errors="*{noOfPages}"> Error </p>
+
             </div>
             <div class="col-md-4">
                 <label class="form-label">Rating</label>
@@ -60,6 +64,8 @@
                         class="form-control"
                         placeholder="Enter Rating"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"> Error </p>
+
             </div>
             <div class="col-md-4">
                 <label class="form-label">Enter Stock</label>
@@ -70,6 +76,8 @@
                         class="form-control"
                         placeholder="Enter Stock"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('stockCount')}" th:errors="*{stockCount}"> Error </p>
+
             </div>
             <br>
             <br>
@@ -90,14 +98,21 @@
                 <!--                class="form-control"-->
                 <!--                placeholder="Enter Category Name"-->
                 <!--                />-->
+
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"> Error </p>
+
             </div>
             <div class="col-md-6">
                 <label class="form-label">Author</label>
-                <select class="form-select " size="3" multiple >
+                <select class="form-select " size="3" multiple th:field="*{authorId}">
                     <option selected th:value="${null}">Select Authors</option>
-                    <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}" th:value="authorDto.id"> </option>
+                    <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}"
+                            th:value="${authorDto.id}"> </option>
 
                 </select>
+
+<!--                <p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> Error </p>-->
+
                 <!--                <input-->
                 <!--                        type="text"-->
                 <!--                        name="authorName"-->
@@ -107,6 +122,7 @@
                 <!--                />-->
             </div>
 
+
             <div class="col-md-5">
                 <label class="form-label">Published Date</label>
                 <input
@@ -115,6 +131,8 @@
                         th:field="*{publishedDate}"
                         class="form-control"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('publishedDate')}" th:errors="*{publishedDate}"> Error </p>
+
             </div>
             <div class="col-md-7">
                 <label class="form-label"> Upload Photo </label>
@@ -136,10 +154,6 @@
         </form>
     </div>
 </div>
-<script>
-    $('.col-md-5').datepicker({
 
-    })
-</script>
 </body>
 </html>

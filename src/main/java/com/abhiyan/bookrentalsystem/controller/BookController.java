@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
 
@@ -54,21 +55,21 @@ public class BookController {
     }
 
     @PostMapping("/add-book/new")
-    public String addNewBook(@ModelAttribute("book") BookDto book, BindingResult bindingResult,
+    public String addNewBook(@Valid @ModelAttribute("book") BookDto book, BindingResult bindingResult,
                              Model model) throws ParseException {
 
-//        if(bindingResult.hasErrors()){
-//            System.out.println("Something went wrong");
-//            List<Author> auth = authorService.getAllAuthors();
-//            List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
-//            List<Category> categories = categoryService.viewCategories();
-//            List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
-//
-//            model.addAttribute("authorDto",authorDto);
-//            model.addAttribute("categoryDto",categoryDto);
-//            model.addAttribute("book",book);
-//            return "/book/addBook";
-//        }
+        if(bindingResult.hasErrors()){
+            System.out.println("Something went wrong");
+            List<Author> auth = authorService.getAllAuthors();
+            List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
+            List<Category> categories = categoryService.viewCategories();
+            List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
+
+            model.addAttribute("authorDto",authorDto);
+            model.addAttribute("categoryDto",categoryDto);
+            model.addAttribute("book",book);
+            return "/book/addBook";
+        }
         System.out.println("I am here.");
         System.out.println(book);
         bookService.saveBookDetails(book);
@@ -83,8 +84,36 @@ public class BookController {
     }
 
     @GetMapping("/delete-book/{id}")
-    public String deleteBook(@PathVariable int id){
+    public String deleteBook(@PathVariable Integer id){
         bookService.deleteBookById(id);
+        return "redirect:/view-books";
+    }
+
+    @GetMapping("/edit-book/{id}")
+    public String editBook(@PathVariable Integer id, Model model){
+        BookDto bookDto = bookService.editBook(id);
+        model.addAttribute("bookDto",bookDto);
+
+        List<Author> auth = authorService.getAllAuthors();
+        List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
+        List<Category> categories = categoryService.viewCategories();
+        List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
+
+        model.addAttribute("authorDto",authorDto);
+        model.addAttribute("categoryDto",categoryDto);
+
+        return "book/updateBook";
+    }
+
+    @PostMapping("/update-book/{id}")
+    public String updateBook(@PathVariable Integer id,@Valid @ModelAttribute("bookDto") BookDto bookDto,
+                             BindingResult bindingResult, Model model) throws ParseException {
+
+        if ((bindingResult.hasErrors())){
+            model.addAttribute("bookDto",bookDto);
+            return "book/updateBook";
+        }
+        bookService.updateBook(id,bookDto);
         return "redirect:/view-books";
     }
 }

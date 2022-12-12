@@ -25,7 +25,7 @@ public class AuthorDto {
     @Email(message = "Enter a valid email address.")
     private String email;
 
-    @Length(min = 10, max = 10, message = "Phone number needs to be of 10 digits")
+//    @Length(min = 10, max = 10, message = "Phone number needs to be of 10 digits")
     @Pattern(regexp = "^[9]+[0-9]{9}$" ,message = "Phone number needs to be of 10 digits")
     private String mobileNumber;
 }
