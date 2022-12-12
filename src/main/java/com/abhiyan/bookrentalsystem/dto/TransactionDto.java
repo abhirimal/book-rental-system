@@ -15,7 +15,7 @@ public class TransactionDto {
 
     private Integer id;
 
-    private Long code;
+    private String code;
 
     private Integer noOfDays;
 

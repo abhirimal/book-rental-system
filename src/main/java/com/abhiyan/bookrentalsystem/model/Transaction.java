@@ -20,7 +20,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Long code;
+    private String code;
 
     private LocalDate fromDate;
 
