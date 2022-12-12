@@ -5,12 +5,13 @@ import com.abhiyan.bookrentalsystem.dto.BookDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BookService {
 
 
-    void saveBookDetails(BookDto book);
+    void saveBookDetails(BookDto book) throws ParseException;
 
     List<BookDto> getAllBooks();
 

@@ -6,8 +6,11 @@ import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
+import com.abhiyan.bookrentalsystem.service.services.StringToDate;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,13 +28,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBookDetails(BookDto bookDto) {
+    public void saveBookDetails(BookDto bookDto) throws ParseException {
         Book book = new Book();
         book.setName(bookDto.getName());
         book.setNoOfPages(bookDto.getNoOfPages());
         book.setISBN(bookDto.getISBN());
         book.setRating(bookDto.getRating());
-        book.setPublishedDate(bookDto.getPublishedDate());
+
+        StringToDate sDate = new StringToDate();
+        LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
+        book.setPublishedDate(date);
+
         book.setPhoto(bookDto.getPhoto());
         book.setStockCount(bookDto.getStockCount());
         System.out.println(bookDto.getCategoryId());

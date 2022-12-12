@@ -6,7 +6,6 @@ import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.model.Author;
-import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.service.AuthorServiceImpl;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -55,7 +55,7 @@ public class BookController {
 
     @PostMapping("/add-book/new")
     public String addNewBook(@ModelAttribute("book") BookDto book, BindingResult bindingResult,
-                             Model model){
+                             Model model) throws ParseException {
 
 //        if(bindingResult.hasErrors()){
 //            System.out.println("Something went wrong");

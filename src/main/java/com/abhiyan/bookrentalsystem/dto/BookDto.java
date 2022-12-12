@@ -33,7 +33,7 @@ public class BookDto {
 
 //    @NotBlank(message = "Date is required. ")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date publishedDate;
+    String publishedDate;
 
     String photo;
 
