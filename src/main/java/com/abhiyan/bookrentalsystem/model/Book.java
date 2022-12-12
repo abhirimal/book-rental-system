@@ -38,13 +38,15 @@ public class Book {
     @JoinTable(name="author_book",
         joinColumns = {@JoinColumn(name = "book_id")},
         inverseJoinColumns = {@JoinColumn(name = "author_id")})
-
     private List<Author> authors;
 
     @ManyToOne
     @JoinColumn(name = "category_id",
         referencedColumnName = "id")
-
     private Category category;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
+
 
 }
