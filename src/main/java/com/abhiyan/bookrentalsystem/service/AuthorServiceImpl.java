@@ -4,7 +4,9 @@ import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
+import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,9 +16,12 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepo authorRepo;
     private final AuthorDtoConverter authorDtoConverter;
 
-    public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter) {
+    private final BookRepo bookRepo;
+
+    public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter, BookRepo bookRepo) {
         this.authorRepo = authorRepo;
         this.authorDtoConverter = authorDtoConverter;
+        this.bookRepo = bookRepo;
     }
 
     @Override
@@ -54,8 +59,11 @@ public class AuthorServiceImpl implements AuthorService {
         return authorDtoConverter.entityToDto(existingAuthor);
     }
 
+//    @Transactional
     @Override
     public void deleteAuthorById(Integer id) {
         authorRepo.deleteById(id);
+//        bookRepo.deleteAuthorBookByAuthorId(id);
+//        bookRepo.deleteBookByAuthorId(id);
     }
 }

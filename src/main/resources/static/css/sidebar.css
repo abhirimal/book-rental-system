@@ -101,5 +101,9 @@ nav ul li a span.rotate{
     transform: translateY(-50%) rotate(-180deg);
 }
 
+body{
+    background-image: url("C:/");
+}
+
 
 

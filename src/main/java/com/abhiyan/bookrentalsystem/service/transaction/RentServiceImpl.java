@@ -12,6 +12,7 @@ import com.abhiyan.bookrentalsystem.service.services.GenerateTransactionCode;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,8 +29,8 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public List<TransactionDto> viewRentTransaction() {
-        return null;
+    public List<Transaction> viewRentTransaction() {
+        return transactionRepo.findAllByRentType(RentType.RENT);
     }
 
     @Override

@@ -18,7 +18,7 @@
 
         <div class="row" style="float: right">
             <div class="col-lg-3" >
-                <a th:href="@{/add-rent}" class="btn btn-primary btn-sm mb-3"> Rent a Book </a>
+                <a th:href="@{/rent-book}" class="btn btn-primary btn-sm mb-3"> Rent a Book </a>
             </div>
 
         </div>
@@ -26,19 +26,26 @@
             <thead class="thead-light">
             <tr>
                 <th scope="col"> Book Name </th>
-                <th scope="col"> Transaction Code </th>
+                <th scope="col"> Member Name </th>
+                <th scope="col"> Code </th>
+                <th scope="col"> Rent Date</th>
+                <th scope="col"> Return Date </th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="rent: ${rent}">
-                <td th:text="${rent.bookName}"></td>
-                <td th:text="${rent.code}"></td>
+            <tr th:each="rentHistory: ${rentHistory}">
+                <td th:text="${rentHistory.book.name}"></td>
+                <td th:text="${rentHistory.member.name}"></td>
+                <td th:text="${rentHistory.code}"></td>
+                <td th:text="${rentHistory.fromDate}"></td>
+                <td th:text="${rentHistory.toDate}"></td>
+
                 <td>
-                    <a th:href="@{/edit-rent-transaction/{id}(id=${rent.id})}">
+                    <a th:href="@{/edit-rent-transaction/{id}(id=${rentHistory.id})}">
                         <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>
                     </a>
-                    <a th:href="@{/delete-rent-transaction/{id}(id=${rent.id})}">
+                    <a th:href="@{/delete-rent-transaction/{id}(id=${rentHistory.id})}">
                         <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>
                     </a>
                 </td>

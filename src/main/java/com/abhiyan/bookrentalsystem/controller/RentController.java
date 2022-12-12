@@ -30,8 +30,9 @@ public class RentController {
     }
 
     @GetMapping("/view-rent-history")
-    public String viewRentHistory(){
-        return "rentBook/rentBook";
+    public String viewRentHistory(Model model){
+        model.addAttribute("rentHistory", rentService.viewRentTransaction());
+        return "rentBook/viewRent";
     }
 
     @GetMapping("rent-book")
@@ -56,12 +57,10 @@ public class RentController {
             model.addAttribute("book",book);
             model.addAttribute("member",member);
             model.addAttribute("rent",rent);
-            System.out.println("Inside br");
             return "rentBook/rentBook";
         }
-        System.out.println("Outside br");
         rentService.rentBook(rent);
-        return "book/viewBook";
+        return "redirect:/view-rent-history";
     }
 
 
