@@ -1,5 +1,6 @@
 package com.abhiyan.bookrentalsystem.model;
 
+import com.abhiyan.bookrentalsystem.enums.RentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,8 @@ public class Transaction {
 
     private LocalDate toDate;
 
-    private String rentStatus;
+    @Enumerated(value = EnumType.STRING)
+    private RentType rentType;
 
     private Integer noOfDays;
 

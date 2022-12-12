@@ -1,4 +1,5 @@
 package com.abhiyan.bookrentalsystem.dto;
+import com.abhiyan.bookrentalsystem.enums.RentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,9 @@ public class TransactionDto {
 
     private Long code;
 
-    private LocalDate fromDate;
-
-    private LocalDate toDate;
-
     private Integer noOfDays;
 
-    private String rentStatus;
+    private Integer memberId;
+
+    private Integer bookId;
 }
