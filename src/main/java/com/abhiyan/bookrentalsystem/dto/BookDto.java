@@ -1,4 +1,5 @@
 package com.abhiyan.bookrentalsystem.dto;
+import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,5 +47,7 @@ public class BookDto {
     Category category;
 
     Integer categoryId;
+
+    List<Author> authors;
 
 }

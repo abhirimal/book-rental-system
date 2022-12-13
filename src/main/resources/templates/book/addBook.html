@@ -16,7 +16,10 @@
 
     <div class="container">
         <br>
+        <a class="btn btn-primary" th:href="@{/view-books}" role="button" style="float: right"> Back </a>
+
         <br>
+            <br>
         <h1> Add New Book </h1>
         <form class="row g-3" th:action="@{/add-book/new}" th:object="${book}" method="POST">
 
