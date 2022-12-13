@@ -1,6 +1,8 @@
 package com.abhiyan.bookrentalsystem.service.transaction;
 
+import com.abhiyan.bookrentalsystem.dto.ReturnResponseDto;
 import com.abhiyan.bookrentalsystem.dto.TransactionDto;
+import com.abhiyan.bookrentalsystem.enums.RentType;
 import com.abhiyan.bookrentalsystem.model.Transaction;
 import com.abhiyan.bookrentalsystem.repository.TransactionRepo;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,27 @@ public class ReturnServiceImpl implements ReturnService{
     }
 
     @Override
-    public List<Transaction> viewReturnTransaction() {
-        return null;
+    public Transaction viewReturnTransaction(String code) {
+        return transactionRepo.findTransactionByCode(code);
     }
 
     @Override
     public List<String> sendAllCode() {
         return transactionRepo.allCode();
     }
+
+    @Override
+    public void confirmReturnTransaction(String code) {
+        Transaction transaction = transactionRepo.findTransactionByCode(code);
+        transaction.setRentType(RentType.RETURN);
+        transactionRepo.save(transaction);
+    }
+
+    @Override
+    public List<ReturnResponseDto> idCode() {
+        return null;
+    }
+
 
     @Override
     public Transaction sendRentData(String code) {

@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title> Category </title>
 </head>
+
 <body>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <br>
+        <br>
+        <h1> Confirmation Page </h1>
+        <br>
+        <br>
+
+
+        <form class="row g-3" th:action="@{/book-returned}" th:object="${transaction}" method="POST" >
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Transaction Code </p>
+                <p class="font-weight-normal" th:text="${transaction.code}" > </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Rent Status </p>
+                <p class="font-weight-normal" th:text="${transaction.rentType}"> </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Book Name </p>
+                <p class="font-weight-normal" th:text="${transaction.book.name}"> </p>
+            </div>
+
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Rented By </p>
+                <p class="font-weight-normal" th:text="${transaction.member.name}"> </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Rent Date </p>
+                <p class="font-weight-normal" th:text="${transaction.fromDate}"> </p>
+            </div>
+
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Return Date </p>
+                <p class="font-weight-normal" th:text="${transaction.toDate}"> </p>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <div >
+                <button type="submit" class="btn btn-primary btn-lg mb-3" th:value="${transaction.code}" name="code"> Confirm Return </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

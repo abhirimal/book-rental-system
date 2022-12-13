@@ -22,11 +22,11 @@
         <br>
 
 
-        <form class="row g-3" th:action="@{/rent-book/new}" th:object="${code}" method="POST">
+        <form class="row g-3" th:action="@{/confirm-return-book}" th:value="${code}" method="POST">
 
             <div class="col-md-6">
                 <label class="form-label">Select Code</label>
-                <select class="form-select" th:field="${code}">
+                <select class="form-select" name="code">
                     <option selected th:value="${null}">Select Transaction Code</option>
 
                     <option th:each="code : ${code}" th:text="${code}"
@@ -38,7 +38,7 @@
             </div>
 
             <div >
-                <button type="submit" class="btn btn-primary btn-sm mb-2"> Submit </button>
+                <button type="submit" class="btn btn-primary btn-sm mb-2" th:value="${code}"> Submit </button>
             </div>
         </form>
     </div>
