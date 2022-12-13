@@ -19,7 +19,7 @@ public interface TransactionRepo extends JpaRepository<Transaction,Integer> {
 
     Transaction findTransactionByCode(String code);
 
-    @Query(nativeQuery = true, value="select code from transaction")
+    @Query(nativeQuery = true, value="select code from transaction where rent_type='RENT'")
     List<String> allCode();
 
 }

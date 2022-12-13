@@ -14,13 +14,5 @@ public interface ReturnService {
 
     void confirmReturnTransaction(String code);
 
-    List<ReturnResponseDto> idCode();
 
-    Transaction sendRentData(String code);
-
-    void returnBook(TransactionDto transactionDto);
-
-    TransactionDto editReturnBook(Integer id);
-
-    TransactionDto updateReturnBook(Integer id, TransactionDto transactionDto);
 }

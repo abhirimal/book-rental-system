@@ -35,30 +35,6 @@ public class ReturnServiceImpl implements ReturnService{
         transactionRepo.save(transaction);
     }
 
-    @Override
-    public List<ReturnResponseDto> idCode() {
-        return null;
-    }
 
 
-    @Override
-    public Transaction sendRentData(String code) {
-        Transaction transaction = transactionRepo.findTransactionByCode(code);
-        return transaction;
-    }
-
-    @Override
-    public void returnBook(TransactionDto transactionDto) {
-
-    }
-
-    @Override
-    public TransactionDto editReturnBook(Integer id) {
-        return null;
-    }
-
-    @Override
-    public TransactionDto updateReturnBook(Integer id, TransactionDto transactionDto) {
-        return null;
-    }
 }
