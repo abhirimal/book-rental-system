@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,7 +48,7 @@ public class RentController {
     }
 
     @PostMapping("rent-book/new")
-    public String rentNewBook(@ModelAttribute("rent") TransactionDto rent, BindingResult bindingResult,
+    public String rentNewBook(@Valid @ModelAttribute("rent") TransactionDto rent, BindingResult bindingResult,
                               Model model){
 
         if (bindingResult.hasErrors()){

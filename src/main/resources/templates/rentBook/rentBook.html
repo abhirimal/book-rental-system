@@ -36,7 +36,7 @@
             <div class="col-md-6">
                 <label class="form-label">Member</label>
                 <select class="form-select" th:field="*{memberId}">
-                    <option selected th:value="${null}">Select Book</option>
+                    <option selected th:value="${null}">Select Member</option>
                     <option th:each="member : ${member}" th:text="${member.name}"
                             th:value="${member.id}"> </option>
                 </select>
