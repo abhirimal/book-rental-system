@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class AuthorController {
 
     @PostMapping("/save-author/new")
     public String saveAuthor(@Valid @ModelAttribute("authorDto") AuthorDto authorDto,
-                             BindingResult bindingResult, Model model) {
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         if(bindingResult.hasErrors()){
 //            System.out.println("Something went wrong");
@@ -42,6 +44,7 @@ public class AuthorController {
             return "author/registerAuthor";
         }
         authorService.saveAuthorDetails(authorDto);
+        redirectAttributes.addFlashAttribute("message","Account created successfully.");
         return "redirect:/view-authors";
     }
 
