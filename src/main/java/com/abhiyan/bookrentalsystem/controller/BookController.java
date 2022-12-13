@@ -111,6 +111,13 @@ public class BookController {
 
         if ((bindingResult.hasErrors())){
             model.addAttribute("bookDto",bookDto);
+            List<Author> auth = authorService.getAllAuthors();
+            List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
+            List<Category> categories = categoryService.viewCategories();
+            List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
+
+            model.addAttribute("authorDto",authorDto);
+            model.addAttribute("categoryDto",categoryDto);
             return "book/updateBook";
         }
         bookService.updateBook(id,bookDto);

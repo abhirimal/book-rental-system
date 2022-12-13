@@ -59,4 +59,10 @@ public class ReturnController {
         return "returnBook/returnBook";
 
     }
+
+    @GetMapping("/view-return-history")
+    public String viewRentHistory(Model model){
+        model.addAttribute("transaction", returnService.viewAllReturnHistory());
+        return "returnBook/viewReturn";
+    }
 }

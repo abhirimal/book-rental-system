@@ -29,6 +29,8 @@
                         class="form-control"
                         placeholder="Enter Book Name"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
+
             </div>
             <div class="col-md-6">
                 <label class="form-label">ISBN</label>
@@ -39,6 +41,8 @@
                         class="form-control"
                         placeholder="Enter ISBN"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"> Error </p>
+
             </div>
 
             <div class="col-md-4">
@@ -50,6 +54,8 @@
                         class="form-control"
                         placeholder="Enter Number of Pages"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfPages')}" th:errors="*{noOfPages}"> Error </p>
+
             </div>
             <div class="col-md-4">
                 <label class="form-label">Rating</label>
@@ -60,6 +66,8 @@
                         class="form-control"
                         placeholder="Enter Rating"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"> Error </p>
+
             </div>
             <div class="col-md-4">
                 <label class="form-label">Enter Stock</label>
@@ -70,6 +78,8 @@
                         class="form-control"
                         placeholder="Enter Stock"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('stockCount')}" th:errors="*{stockCount}"> Error </p>
+
             </div>
             <br>
             <br>
@@ -83,6 +93,8 @@
                             th:value="${categoryDto.id}"> </option>
 
                 </select>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"> Error </p>
+
                 <!--                <input-->
                 <!--                type="text"-->
                 <!--                name="categoryName"-->
@@ -98,6 +110,8 @@
                     <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}" th:value="authorDto.id"> </option>
 
                 </select>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"> Error </p>
+
                 <!--                <input-->
                 <!--                        type="text"-->
                 <!--                        name="authorName"-->
@@ -115,6 +129,8 @@
                         th:field="*{publishedDate}"
                         class="form-control"
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('publishedDate')}" th:errors="*{publishedDate}"> Error </p>
+
             </div>
             <div class="col-md-7">
                 <label class="form-label"> Upload Photo </label>

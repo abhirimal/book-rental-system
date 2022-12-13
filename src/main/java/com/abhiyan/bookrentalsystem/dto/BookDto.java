@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -25,15 +23,19 @@ public class BookDto {
 
 //    @NotBlank(message = "Total number of pages is required.") - cannot use this for integer type
     @Min(value=0,message = "Pages cannot be negative. ")
+    @NotNull(message = " Number of pages is required")
     Integer noOfPages;
 
 //    @NotBlank(message = "ISBN is required.")
+    @NotNull(message = "ISBN is required")
     Long isbn;
 
-    @Min(value=0,message = "Rating is required ")
+    @Min(value=0,message = "Pages cannot be negative. ")
+    @NotNull(message = "Rating is required")
     Double rating;
 
-    @Min(value=0,message = "Stock Count is required. ")
+    @Min(value=0,message = "Stock Count cannot be negative. ")
+    @NotNull(message = "Stock is required")
     Integer stockCount;
 
     @NotBlank(message = "Date is required. ")
@@ -42,11 +44,14 @@ public class BookDto {
 
     String photo;
 
+    @NotEmpty(message = "Select atleast one author")
     List<Integer> authorId;
 
     Category category;
 
+    @NotNull(message = "Select atleast one category")
     Integer categoryId;
+
 
     List<Author> authors;
 

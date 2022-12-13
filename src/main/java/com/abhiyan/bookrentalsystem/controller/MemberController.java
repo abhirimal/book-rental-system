@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     @PostMapping("/add-member/new")
-    public String addNewMember(@Valid @ModelAttribute MemberDto memberDto, BindingResult bindingResult,
+    public String addNewMember(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult,
                                Model model){
 
         if(bindingResult.hasErrors()){
@@ -61,7 +61,7 @@ public class MemberController {
     }
 
     @PostMapping("/update-member/{id}")
-    public String updateMember(@PathVariable Integer id, @Valid @ModelAttribute MemberDto memberDto,
+    public String updateMember(@PathVariable Integer id, @Valid @ModelAttribute("member") MemberDto memberDto,
                                BindingResult bindingResult,Model model){
 
         if(bindingResult.hasErrors()){

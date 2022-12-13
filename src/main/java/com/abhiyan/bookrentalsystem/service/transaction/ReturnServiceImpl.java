@@ -18,6 +18,12 @@ public class ReturnServiceImpl implements ReturnService{
         this.transactionRepo = transactionRepo;
     }
 
+
+    @Override
+    public List<Transaction> viewAllReturnHistory() {
+        return transactionRepo.findAllByRentType(RentType.RETURN);
+    }
+
     @Override
     public Transaction viewReturnTransaction(String code) {
         return transactionRepo.findTransactionByCode(code);

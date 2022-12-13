@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ReturnService {
 
+    List<Transaction> viewAllReturnHistory();
+
     Transaction viewReturnTransaction(String code);
 
     List<String> sendAllCode();

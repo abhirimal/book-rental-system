@@ -13,7 +13,7 @@
     <div class="container">
         <br>
         <div class="row">
-            <h1> Rented Books </h1>
+            <h1> Rented Books Transaction History</h1>
         </div>
 
         <div class="row" style="float: right">
@@ -30,7 +30,7 @@
                 <th scope="col"> Code </th>
                 <th scope="col"> Rent Date</th>
                 <th scope="col"> Return Date </th>
-                <th scope="col">Actions</th>
+<!--                <th scope="col">Actions</th>-->
             </tr>
             </thead>
             <tbody>
@@ -41,14 +41,14 @@
                 <td th:text="${rentHistory.fromDate}"></td>
                 <td th:text="${rentHistory.toDate}"></td>
 
-                <td>
-                    <a th:href="@{/edit-rent-transaction/{id}(id=${rentHistory.id})}">
-                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>
-                    </a>
-                    <a th:href="@{/delete-rent-transaction/{id}(id=${rentHistory.id})}">
-                        <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>
-                    </a>
-                </td>
+<!--                <td>-->
+<!--                    <a th:href="@{/edit-rent-transaction/{id}(id=${rentHistory.id})}">-->
+<!--                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>-->
+<!--                    </a>-->
+<!--                    <a th:href="@{/delete-rent-transaction/{id}(id=${rentHistory.id})}">-->
+<!--                        <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>-->
+<!--                    </a>-->
+<!--                </td>-->
             </tr>
             </tbody>
         </table>
