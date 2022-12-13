@@ -1,9 +1,9 @@
 package com.abhiyan.bookrentalsystem.service.transaction;
 
-import com.abhiyan.bookrentalsystem.dto.ReturnResponseDto;
-import com.abhiyan.bookrentalsystem.dto.TransactionDto;
 import com.abhiyan.bookrentalsystem.enums.RentType;
+import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Transaction;
+import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.repository.TransactionRepo;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,11 @@ import java.util.List;
 public class ReturnServiceImpl implements ReturnService{
 
     private final TransactionRepo transactionRepo;
+    private final BookRepo bookRepo;
 
-    public ReturnServiceImpl(TransactionRepo transactionRepo) {
+    public ReturnServiceImpl(TransactionRepo transactionRepo, BookRepo bookRepo) {
         this.transactionRepo = transactionRepo;
+        this.bookRepo = bookRepo;
     }
 
 
@@ -39,6 +41,13 @@ public class ReturnServiceImpl implements ReturnService{
         Transaction transaction = transactionRepo.findTransactionByCode(code);
         transaction.setRentType(RentType.RETURN);
         transactionRepo.save(transaction);
+
+        //increase stock count on return
+        Book book = bookRepo.findById(transaction.getBook().getId()).orElse(null);
+        Integer stock = book.getStockCount();
+        stock=stock+1;
+        book.setStockCount(stock);
+        bookRepo.save(book);
     }
 
 

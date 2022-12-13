@@ -21,4 +21,6 @@ public interface BookService {
     BookDto updateBook(Integer id, BookDto bookDto) throws ParseException;
 
     void deleteBookById(Integer id);
+
+    List<BookDto> findAllBooksWithStock();
 }

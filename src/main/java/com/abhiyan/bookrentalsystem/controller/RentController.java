@@ -39,7 +39,7 @@ public class RentController {
     public String rentBook(Model model){
         TransactionDto transactionDto = new TransactionDto();
         List<MemberDto> member = memberService.viewMembers();
-        List<BookDto> book = bookService.getAllBooks();
+        List<BookDto> book = bookService.findAllBooksWithStock();
         model.addAttribute("book",book);
         model.addAttribute("member",member);
         model.addAttribute("rent",transactionDto);
@@ -53,7 +53,7 @@ public class RentController {
         if (bindingResult.hasErrors()){
 
             List<MemberDto> member = memberService.viewMembers();
-            List<BookDto> book = bookService.getAllBooks();
+            List<BookDto> book = bookService.findAllBooksWithStock();
             model.addAttribute("book",book);
             model.addAttribute("member",member);
             model.addAttribute("rent",rent);

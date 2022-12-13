@@ -94,4 +94,11 @@ public class BookServiceImpl implements BookService {
     public void deleteBookById(Integer id) {
         bookRepo.deleteById(id);
     }
+
+    @Override
+    public List<BookDto> findAllBooksWithStock() {
+        List<Book> book = bookRepo.findAllBookWithStock();
+        List<BookDto> bookDtos = bookDtoConverter.entityToDto(book);
+        return bookDtos;
+    }
 }

@@ -3,11 +3,12 @@ package com.abhiyan.bookrentalsystem.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class ReturnResponseDto {
+public class RentDto {
 
-    Integer id;
 
-    Integer code;
+    List<String> codeList;
 }

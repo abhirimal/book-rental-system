@@ -44,7 +44,7 @@ public class BookDto {
 
     String photo;
 
-//    @NotEmpty(message = "Select atleast one author")
+    @NotEmpty(message = "Select atleast one author")
     List<Integer> authorId;
 
     Category category;
