@@ -74,7 +74,9 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepo.findById(id).orElse(null);
         book.setName(bookDto.getName());
         book.setIsbn(bookDto.getIsbn());
-        book.setCategory(bookDto.getCategory());
+        Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
+        System.out.println(bookDto.getCategoryId());
+        book.setCategory(category);
         book.setRating(bookDto.getRating());
         book.setNoOfPages(bookDto.getNoOfPages());
         book.setPhoto(bookDto.getPhoto());

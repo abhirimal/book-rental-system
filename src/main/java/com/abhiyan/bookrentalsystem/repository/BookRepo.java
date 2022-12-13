@@ -21,6 +21,13 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
 //            "where author_book.author_id = ?1\n")
 //    void deleteBookByAuthorId(int bid);
 
+        @Query(nativeQuery = true, value = "delete \n" +
+            "from book \n" +
+            "inner join author_book on book.id=author_book.book_id \n" +
+            "where author_book.author_id = ?1\n")
+    void deleteBookByAuthorId(int bid);
+
+
 }
 
 
