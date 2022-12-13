@@ -4,6 +4,7 @@ import com.abhiyan.bookrentalsystem.converter.MemberDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
+import com.abhiyan.bookrentalsystem.service.emailsender.EmailSenderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,15 +15,25 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepo memberRepo;
     private final MemberDtoConverter memberDtoConverter;
 
-    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter) {
+    private final EmailSenderService emailSenderService;
+
+    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter, EmailSenderService emailSenderService) {
         this.memberRepo = memberRepo;
         this.memberDtoConverter = memberDtoConverter;
+        this.emailSenderService = emailSenderService;
     }
 
     @Override
     public void saveMember(MemberDto memberDto) {
         Member member = memberDtoConverter.dtoToEntity(memberDto);
         memberRepo.save(member);
+
+        //send email
+        emailSenderService.sendEmail(member.getEmail(),
+                "Hello "+member.getName()+", \n" +
+                        "Your account has been created in Book Rental System \n"+
+                        "Thank You.",
+                "Account created in Book Rental");
     }
 
     @Override

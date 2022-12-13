@@ -5,8 +5,8 @@ import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
+import com.abhiyan.bookrentalsystem.service.emailsender.EmailSenderService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,10 +18,13 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final BookRepo bookRepo;
 
-    public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter, BookRepo bookRepo) {
+    private final EmailSenderService emailSenderService;
+
+    public AuthorServiceImpl(AuthorRepo authorRepo, AuthorDtoConverter authorDtoConverter, BookRepo bookRepo, EmailSenderService emailSenderService) {
         this.authorRepo = authorRepo;
         this.authorDtoConverter = authorDtoConverter;
         this.bookRepo = bookRepo;
+        this.emailSenderService = emailSenderService;
     }
 
     @Override
@@ -35,6 +38,13 @@ public class AuthorServiceImpl implements AuthorService {
         // newAuthor.setEmail(authorDto.getEmail());
         // newAuthor.setMobile_number(authorDto.getMobile_number());
         // authorRepo.save(newAuthor);
+
+        //send email
+        emailSenderService.sendEmail(newAuthor.getEmail(),
+                "Hello "+newAuthor.getName()+", \n" +
+                        "Your account has been created in Book Rental System \n"+
+                "Thank You.",
+                "Account created in Book Rental");
     }
 
     @Override
