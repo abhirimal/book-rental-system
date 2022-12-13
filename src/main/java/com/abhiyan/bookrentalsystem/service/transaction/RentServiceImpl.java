@@ -34,7 +34,7 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
-    public void rentBook(TransactionDto transactionDto) {
+    public String rentBook(TransactionDto transactionDto) {
         Transaction transaction =new Transaction();
 
         transaction.setCode(transactionDto.getCode());
@@ -67,6 +67,8 @@ public class RentServiceImpl implements RentService {
         stock = stock-1;
         book1.setStockCount(stock);
         bookRepo.save(book1);
+
+        return code;
 
     }
 

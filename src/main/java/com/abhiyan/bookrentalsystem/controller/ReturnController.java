@@ -56,8 +56,7 @@ public class ReturnController {
     public String bookReturned(@RequestParam(value="code", required=true) String code){
         returnService.confirmReturnTransaction(code);
 //        System.out.println(code);
-        return "returnBook/returnBook";
-
+        return "redirect:/view-return-history";
     }
 
     @GetMapping("/view-return-history")

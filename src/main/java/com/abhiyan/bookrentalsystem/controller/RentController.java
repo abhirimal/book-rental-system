@@ -60,8 +60,9 @@ public class RentController {
             model.addAttribute("rent",rent);
             return "rentBook/rentBook";
         }
-        rentService.rentBook(rent);
-        return "redirect:/view-rent-history";
+        String code = rentService.rentBook(rent);
+        model.addAttribute("code", code);
+        return "rentBook/displayCode";
     }
 
 

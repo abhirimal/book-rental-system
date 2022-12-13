@@ -10,7 +10,7 @@ public interface RentService {
 
     List<Transaction> viewRentTransaction();
 
-    void rentBook(TransactionDto transactionDto);
+    String rentBook(TransactionDto transactionDto);
 
     TransactionDto editRentBook(Integer id);
 
