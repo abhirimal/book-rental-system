@@ -27,6 +27,7 @@
             <tr>
                 <th scope="colgroup">Book Name </th>
                 <th scope="colgroup">Book ISBN </th>
+                <th scope="colgroup">Stock </th>
                 <th scope="colgroup">Actions</th>
             </tr>
             </thead>
@@ -34,6 +35,7 @@
             <tr th:each="book : ${book}">
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.isbn}"></td>
+                <td th:text="${book.stockCount}"></td>
                 <td>
                     <a th:href="@{/edit-book/{id}(id=${book.id})}">
                         <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>

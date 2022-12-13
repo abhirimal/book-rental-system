@@ -60,6 +60,14 @@ public class RentServiceImpl implements RentService {
 
         transactionRepo.save(transaction);
 
+
+        // decreasing stock count when rent
+        Book book1 = bookRepo.findById(transactionDto.getBookId()).orElse(null);
+        Integer stock = book1.getStockCount();
+        stock = stock-1;
+        book1.setStockCount(stock);
+        bookRepo.save(book1);
+
     }
 
     @Override
