@@ -17,21 +17,16 @@
         <div class="row">
             <h1> All Authors</h1>
         </div>
-
+        <div class="alert alert-success" role="alert"
+             th:if="${message}"> <strong>Success!</strong>
+            <span th:text="${message}"></span>
+        </div>
         <div class="row" style="float: right">
-
-            <div class="alert alert-success" role="alert"
-                 th:if="${message}"> <strong>Success!</strong>
-                <span th:text="${message}"></span>
-                <button aria-label="Close" class="btn-close" data-bs-dismiss="alert"
-                        type="button"></button>
-            </div>
-
             <div class="col-lg-3" >
                 <a th:href="@{/save-author}" class="btn btn-primary btn-sm mb-3"> Add New Author </a>
             </div>
-
         </div>
+
         <table class="table">
             <thead class="thead-light">
             <tr>

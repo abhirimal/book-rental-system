@@ -16,6 +16,11 @@
             <h1> Returned Book Transaction History </h1>
         </div>
 
+        <div class="alert alert-success" role="alert"
+             th:if="${message}"> <strong>Success!</strong>
+            <span th:text="${message}"></span>
+        </div>
+
         <div class="row" style="float: right">
             <div class="col-lg-3" >
                 <a th:href="@{/return-book}" class="btn btn-primary btn-sm mb-3"> Return a Book </a>

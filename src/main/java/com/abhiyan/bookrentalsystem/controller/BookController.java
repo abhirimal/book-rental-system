@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -56,7 +57,7 @@ public class BookController {
 
     @PostMapping("/add-book/new")
     public String addNewBook(@Valid @ModelAttribute("book") BookDto book, BindingResult bindingResult,
-                             Model model) throws ParseException {
+                             Model model, RedirectAttributes redirectAttributes) throws ParseException {
 
         if(bindingResult.hasErrors()){
             System.out.println("Something went wrong");
@@ -70,9 +71,10 @@ public class BookController {
             model.addAttribute("book",book);
             return "/book/addBook";
         }
-        System.out.println("I am here.");
+//        System.out.println("I am here.");
         System.out.println(book);
         bookService.saveBookDetails(book);
+        redirectAttributes.addFlashAttribute("message","Book added successfully.");
         return "redirect:/view-books";
     }
 
@@ -84,8 +86,9 @@ public class BookController {
     }
 
     @GetMapping("/delete-book/{id}")
-    public String deleteBook(@PathVariable Integer id){
+    public String deleteBook(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         bookService.deleteBookById(id);
+        redirectAttributes.addFlashAttribute("message","Book deleted successfully.");
         return "redirect:/view-books";
     }
 
@@ -107,7 +110,7 @@ public class BookController {
 
     @PostMapping("/update-book/{id}")
     public String updateBook(@PathVariable Integer id,@Valid @ModelAttribute("bookDto") BookDto bookDto,
-                             BindingResult bindingResult, Model model) throws ParseException {
+                             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException {
 
         if ((bindingResult.hasErrors())){
             model.addAttribute("bookDto",bookDto);
@@ -121,6 +124,7 @@ public class BookController {
             return "book/updateBook";
         }
         bookService.updateBook(id,bookDto);
+        redirectAttributes.addFlashAttribute("message","Book data updated successfully.");
         return "redirect:/view-books";
     }
 }

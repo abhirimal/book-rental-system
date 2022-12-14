@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,13 +37,14 @@ public class CategoryController {
 
     @PostMapping("/add-category/new")
     public String addNewCategory(@Valid @ModelAttribute("categoryDto") CategoryDto categoryDto,
-                                 BindingResult bindingResult, Model model){
+                                 BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
 
         if (bindingResult.hasErrors()){
             model.addAttribute("categoryDto",categoryDto);
             return "category/addCategory";
         }
         categoryService.saveCategory(categoryDto);
+        redirectAttributes.addFlashAttribute("message","Category added successfully.");
         return "redirect:/view-categories";
     }
 
@@ -55,8 +57,9 @@ public class CategoryController {
     }
 
     @GetMapping("/delete-category/{id}")
-    public String deleteCategory(@PathVariable Integer id){
+    public String deleteCategory(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         categoryService.deleteCategory(id);
+        redirectAttributes.addFlashAttribute("message","Category deleted successfully.");
         return "redirect:/view-categories";
     }
 
@@ -69,13 +72,14 @@ public class CategoryController {
 
     @PostMapping("/update-category/{id}")
     public String updateCategory(@PathVariable Integer id, @Valid @ModelAttribute("category") CategoryDto categoryDto,
-                                 BindingResult bindingResult, Model model){
+                                 BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("category", categoryDto);
             return "category/updateCategory";
         }
         categoryService.updateCategory(id,categoryDto);
+        redirectAttributes.addFlashAttribute("message","Category updated successfully.");
         return "redirect:/view-categories";
 
     }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.swing.table.TableRowSorter;
 import java.util.List;
@@ -53,8 +54,10 @@ public class ReturnController {
     }
 
     @PostMapping ("/book-returned")
-    public String bookReturned(@RequestParam(value="code", required=true) String code){
+    public String bookReturned(@RequestParam(value="code", required=true) String code, RedirectAttributes redirectAttributes){
         returnService.confirmReturnTransaction(code);
+        redirectAttributes.addFlashAttribute("message","Book returned successfully.");
+
 //        System.out.println(code);
         return "redirect:/view-return-history";
     }

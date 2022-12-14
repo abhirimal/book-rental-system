@@ -86,6 +86,10 @@ public class BookServiceImpl implements BookService {
         LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
         book.setPublishedDate(date);
         //        book.setAuthors(bookDto.getAuthor());
+
+        List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
+        book.setAuthors(authors);
+        bookRepo.save(book);
         bookRepo.save(book);
         return bookDto;
     }

@@ -64,19 +64,22 @@ public class AuthorController {
     }
 
     @PostMapping("/update-author/{id}")
-    public String updateAuthor(Model model, @PathVariable int id,@Valid @ModelAttribute("author") AuthorDto authorDto,BindingResult bindingResult  ){
+    public String updateAuthor(Model model, @PathVariable int id,@Valid @ModelAttribute("author") AuthorDto authorDto,BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
 
         if (bindingResult.hasErrors()){
             model.addAttribute("author",authorDto);
             return "author/updateAuthor";
         }
         authorService.updateAuthor(id,authorDto);
+        redirectAttributes.addFlashAttribute("message","Account updated successfully.");
         return "redirect:/view-authors";
     }
 
     @GetMapping("/delete-author/{id}")
-    public String deleteAuthorById(@PathVariable int id){
+    public String deleteAuthorById(@PathVariable int id, RedirectAttributes redirectAttributes){
         authorService.deleteAuthorById(id);
+        redirectAttributes.addFlashAttribute("message","Account deleted successfully.");
         return "redirect:/view-authors";
     }
 

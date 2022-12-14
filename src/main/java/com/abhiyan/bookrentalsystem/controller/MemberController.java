@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -32,13 +33,15 @@ public class MemberController {
 
     @PostMapping("/add-member/new")
     public String addNewMember(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult,
-                               Model model){
+                               Model model, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberDto",memberDto);
             return "member/registerMember";
         }
         memberService.saveMember(memberDto);
+        redirectAttributes.addFlashAttribute("message","Member account created successfully.");
+
         return "redirect:/view-members";
     }
 
@@ -49,8 +52,9 @@ public class MemberController {
     }
 
     @GetMapping("/delete-member/{id}")
-    public String deleteMemberById(@PathVariable Integer id){
+    public String deleteMemberById(@PathVariable Integer id, RedirectAttributes redirectAttributes){
         memberService.deleteMember(id);
+        redirectAttributes.addFlashAttribute("message","Member account deleted successfully.");
         return "redirect:/view-members";
     }
 
@@ -62,13 +66,14 @@ public class MemberController {
 
     @PostMapping("/update-member/{id}")
     public String updateMember(@PathVariable Integer id, @Valid @ModelAttribute("member") MemberDto memberDto,
-                               BindingResult bindingResult,Model model){
+                               BindingResult bindingResult,Model model, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("member",memberDto);
             return "member/updateMember";
         }
         memberService.updateMember(id, memberDto);
+        redirectAttributes.addFlashAttribute("message","Member account updated successfully.");
         return "redirect:/view-members";
     }
 }
