@@ -17,7 +17,7 @@
     <div class="container">
         <br>
         <br>
-        <h1> Add New Book </h1>
+        <h1> Update Book </h1>
         <form class="row g-3" th:action="@{/update-book/{id}(id=${bookDto.id})}" th:object="${bookDto}" method="POST">
 
             <div class="col-md-6">

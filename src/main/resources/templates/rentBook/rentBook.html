@@ -19,6 +19,7 @@
         <a class="btn btn-primary" th:href="@{/view-rent-history}" role="button" style="float: right"> Back </a>
         <br>
         <h1> Rent Book </h1>
+        <br>
         <form class="row g-3" th:action="@{/rent-book/new}" th:object="${rent}" method="POST">
 
             <div class="col-md-6">
@@ -44,7 +45,9 @@
                 <p class="alert alert-danger" th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}"> Error </p>
 
             </div>
-
+            <br>
+            <br>
+            <br>
             <div class="col-md-6">
                 <label class="form-label">Number Of Days</label>
                 <input
