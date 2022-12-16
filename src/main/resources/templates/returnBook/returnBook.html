@@ -30,11 +30,12 @@
             <div class="col-md-6">
                 <label class="form-label">Select Code</label>
                 <select class="form-select" name="code">
-                    <option selected th:value="${null}">Select Transaction Code</option>
+                    <option selected >Select Transaction Code</option>
 
                     <option th:each="code : ${code}" th:text="${code}"
                             th:value="${code}"> </option>
                 </select>
+<!--                <p class="alert alert-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"> Error </p>-->
 
 <!--                <p class="alert alert-danger" th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}"> Error </p>-->
 

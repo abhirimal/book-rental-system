@@ -5,6 +5,7 @@ import com.abhiyan.bookrentalsystem.model.Transaction;
 import com.abhiyan.bookrentalsystem.service.transaction.ReturnService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.swing.table.TableRowSorter;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Controller
@@ -38,32 +41,35 @@ public class ReturnController {
 //    }
 
     @GetMapping("/return-book")
-    public String returnBook(Model model){
+    public String returnBook(Model model) {
         List<String> code = returnService.sendAllCode();
-        model.addAttribute("code",code);
+        model.addAttribute("code", code);
         return "returnBook/returnBook";
     }
 
-    @PostMapping ("/confirm-return-book")
-    public String confirmReturn(@RequestParam(value="code", required=true) String code, Model model){
+    @PostMapping("/confirm-return-book")
+    public String confirmReturn(@RequestParam(value="code") String code, Model model) {
+//        if(bindingResult.hasErrors()){
+//            return "returnBook/returnBook";
+//        }
         Transaction transaction = returnService.viewReturnTransaction(code);
 //      System.out.println(code);
-        model.addAttribute("transaction",transaction);
+        model.addAttribute("transaction", transaction);
         return "returnBook/confirmReturn";
 
     }
 
-    @PostMapping ("/book-returned")
-    public String bookReturned(@RequestParam(value="code", required=true) String code, RedirectAttributes redirectAttributes){
+    @PostMapping("/book-returned")
+    public String bookReturned(@RequestParam("code") String code, RedirectAttributes redirectAttributes) {
         returnService.confirmReturnTransaction(code);
-        redirectAttributes.addFlashAttribute("message","Book returned successfully.");
+        redirectAttributes.addFlashAttribute("message", "Book returned successfully.");
 
 //        System.out.println(code);
         return "redirect:/view-return-history";
     }
 
     @GetMapping("/view-return-history")
-    public String viewRentHistory(Model model){
+    public String viewRentHistory(Model model) {
         model.addAttribute("transaction", returnService.viewAllReturnHistory());
         return "returnBook/viewReturn";
     }
