@@ -1,11 +1,12 @@
-package com.abhiyan.bookrentalsystem.service;
+package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
-import com.abhiyan.bookrentalsystem.service.emailsender.EmailSenderService;
+import com.abhiyan.bookrentalsystem.service.AuthorService;
+import com.abhiyan.bookrentalsystem.service.services.EmailSenderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,14 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void saveAuthorDetails(AuthorDto authorDto) {
+        Author existingAuthor = (Author) authorRepo.findByEmail(authorDto.getEmail()).orElse(null);
+        if(existingAuthor!=null){
+            System.out.println("Author already exists. ");
+
+        }
+
         Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
+
         authorRepo.save(newAuthor);
 
         // or we can do this way

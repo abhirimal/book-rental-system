@@ -1,4 +1,4 @@
-package com.abhiyan.bookrentalsystem.service.emailsender;
+package com.abhiyan.bookrentalsystem.service.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

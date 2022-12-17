@@ -1,15 +1,16 @@
-package com.abhiyan.bookrentalsystem.service;
+package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.CategoryDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
+import com.abhiyan.bookrentalsystem.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepo categoryRepo;
 

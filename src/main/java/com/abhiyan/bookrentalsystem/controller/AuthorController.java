@@ -3,7 +3,7 @@ package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.model.Author;
-import com.abhiyan.bookrentalsystem.service.AuthorServiceImpl;
+import com.abhiyan.bookrentalsystem.service.impl.AuthorServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -1,16 +1,17 @@
-package com.abhiyan.bookrentalsystem.service;
+package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.MemberDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
-import com.abhiyan.bookrentalsystem.service.emailsender.EmailSenderService;
+import com.abhiyan.bookrentalsystem.service.MemberService;
+import com.abhiyan.bookrentalsystem.service.services.EmailSenderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepo memberRepo;
     private final MemberDtoConverter memberDtoConverter;

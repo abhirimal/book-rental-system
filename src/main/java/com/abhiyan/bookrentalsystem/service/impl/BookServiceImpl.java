@@ -1,4 +1,4 @@
-package com.abhiyan.bookrentalsystem.service;
+package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.BookDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
@@ -8,6 +8,7 @@ import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
+import com.abhiyan.bookrentalsystem.service.BookService;
 import com.abhiyan.bookrentalsystem.service.services.StringToDate;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class BookServiceImpl implements BookService {
         StringToDate sDate = new StringToDate();
         LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
         book.setPublishedDate(date);
+//        long timeStamp = System.currentTimeMillis();
 
         book.setPhoto(bookDto.getPhoto());
         book.setStockCount(bookDto.getStockCount());
