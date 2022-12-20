@@ -7,7 +7,9 @@ import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.service.AuthorService;
 import com.abhiyan.bookrentalsystem.service.services.EmailSenderService;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -29,11 +31,11 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void saveAuthorDetails(AuthorDto authorDto) {
+    public void saveAuthorDetails(AuthorDto authorDto) throws RuntimeException {
+
         Author existingAuthor = (Author) authorRepo.findByEmail(authorDto.getEmail()).orElse(null);
         if(existingAuthor!=null){
-            System.out.println("Author already exists. ");
-
+            throw new RuntimeException("User already exists.");
         }
 
         Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
