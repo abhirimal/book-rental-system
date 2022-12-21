@@ -14,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@Table(name="author",uniqueConstraints = {
+        @UniqueConstraint(name="email",columnNames = {"email"})
+})
+
 public class Author {
 
     @Id

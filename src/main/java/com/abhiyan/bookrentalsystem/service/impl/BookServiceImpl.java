@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.BookDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
@@ -34,27 +35,53 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBookDetails(BookDto bookDto) throws ParseException {
+    public ResponseDto saveBookDetails(BookDto bookDto) throws ParseException {
         Book book = new Book();
-        book.setName(bookDto.getName());
-        book.setNoOfPages(bookDto.getNoOfPages());
-        book.setIsbn(bookDto.getIsbn());
-        book.setRating(bookDto.getRating());
 
-        StringToDate sDate = new StringToDate();
-        LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
-        book.setPublishedDate(date);
+        try{
+            book.setName(bookDto.getName());
+            book.setNoOfPages(bookDto.getNoOfPages());
+            book.setIsbn(bookDto.getIsbn());
+            book.setRating(bookDto.getRating());
+
+            StringToDate sDate = new StringToDate();
+            LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
+            book.setPublishedDate(date);
 //        long timeStamp = System.currentTimeMillis();
 
-        book.setPhoto(bookDto.getPhoto());
-        book.setStockCount(bookDto.getStockCount());
+            book.setPhoto(bookDto.getPhoto());
+            book.setStockCount(bookDto.getStockCount());
 
-        Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
-        book.setCategory(category);
+            Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
+            book.setCategory(category);
 
-        List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
-        book.setAuthors(authors);
-        bookRepo.save(book);
+            List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
+            book.setAuthors(authors);
+            bookRepo.save(book);
+
+            return ResponseDto.builder()
+                    .message("Book added successfully.")
+                    .status(true)
+                    .build();
+
+        }
+        catch(Exception e){
+            if(e.getMessage().contains("isbn")){
+                return ResponseDto.builder()
+                        .message("Book already registered with the ISBN number")
+                        .status(false)
+                        .build();
+            }
+
+            else{
+                e.printStackTrace();
+                return ResponseDto.builder()
+                        .message(e.getMessage())
+                        .status(false)
+                        .build();
+            }
+        }
+
     }
 
     @Override

@@ -13,6 +13,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
+@Table(name="category",uniqueConstraints ={
+        @UniqueConstraint(name="category",columnNames = {"name"})
+} )
 public class Category {
 
     @Id

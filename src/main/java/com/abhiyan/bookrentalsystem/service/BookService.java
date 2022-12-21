@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.service;
 
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface BookService {
 
 
-    void saveBookDetails(BookDto book) throws ParseException;
+    ResponseDto saveBookDetails(BookDto book) throws ParseException;
 
     List<BookDto> getAllBooks();
 

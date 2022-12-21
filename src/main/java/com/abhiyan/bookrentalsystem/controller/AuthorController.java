@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.controller;
 
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.service.impl.AuthorServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,16 @@ public class AuthorController {
             model.addAttribute("authorDto",authorDto );
             return "author/registerAuthor";
         }
-        authorService.saveAuthorDetails(authorDto);
-        redirectAttributes.addFlashAttribute("message","Account created successfully.");
-        return "redirect:/view-authors";
+
+        ResponseDto responseDto = authorService.saveAuthorDetails(authorDto);
+
+        if(responseDto.getStatus()){
+            redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
+            return "redirect:/view-authors";
+        }
+
+        model.addAttribute("errorMessage",responseDto.getMessage());
+        return "author/registerAuthor";
     }
 
 

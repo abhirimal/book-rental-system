@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
@@ -31,16 +32,38 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void saveAuthorDetails(AuthorDto authorDto) throws RuntimeException {
+    public ResponseDto saveAuthorDetails(AuthorDto authorDto) throws RuntimeException {
 
         Author existingAuthor = (Author) authorRepo.findByEmail(authorDto.getEmail()).orElse(null);
-        if(existingAuthor!=null){
-            throw new RuntimeException("User already exists.");
-        }
-
         Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
 
-        authorRepo.save(newAuthor);
+        try{
+            authorRepo.save(newAuthor);
+
+            return ResponseDto.builder()
+                    .message("Author added successfully")
+                    .status(true)
+                    .build();
+
+        }
+        catch (Exception e){
+
+            if(e.getMessage().contains("email")){
+                return ResponseDto.builder()
+                        .message("Email already exists for an author.")
+                        .status(false)
+                        .build();
+            }
+            else{
+                e.printStackTrace();
+                return ResponseDto.builder()
+                        .status(false)
+                        .message(e.getMessage())
+                        .build();
+            }
+        }
+
+
 
         // or we can do this way
         // Author newAuthor = new Author();
@@ -50,11 +73,11 @@ public class AuthorServiceImpl implements AuthorService {
         // authorRepo.save(newAuthor);
 
         //send email
-        emailSenderService.sendEmail(newAuthor.getEmail(),
-                "Hello "+newAuthor.getName()+", \n" +
-                        "Your account has been created in Book Rental System \n"+
-                "Thank You.",
-                "Account created in Book Rental");
+//        emailSenderService.sendEmail(newAuthor.getEmail(),
+//                "Hello "+newAuthor.getName()+", \n" +
+//                        "Your account has been created in Book Rental System \n"+
+//                "Thank You.",
+//                "Account created in Book Rental");
     }
 
     @Override

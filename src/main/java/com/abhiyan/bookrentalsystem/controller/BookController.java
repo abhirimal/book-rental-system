@@ -5,6 +5,7 @@ import com.abhiyan.bookrentalsystem.converter.CategoryDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
@@ -59,13 +60,13 @@ public class BookController {
     public String addNewBook(@Valid @ModelAttribute("book") BookDto book, BindingResult bindingResult,
                              Model model, RedirectAttributes redirectAttributes) throws ParseException {
 
+        List<Author> auth = authorService.getAllAuthors();
+        List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
+        List<Category> categories = categoryService.viewCategories();
+        List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
+
         if(bindingResult.hasErrors()){
             System.out.println("Something went wrong");
-            List<Author> auth = authorService.getAllAuthors();
-            List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
-            List<Category> categories = categoryService.viewCategories();
-            List<CategoryDto> categoryDto = categoryDtoConverter.entityToDto(categories);
-
             model.addAttribute("authorDto",authorDto);
             model.addAttribute("categoryDto",categoryDto);
             model.addAttribute("book",book);
@@ -73,9 +74,16 @@ public class BookController {
         }
 //        System.out.println("I am here.");
         System.out.println(book);
-        bookService.saveBookDetails(book);
-        redirectAttributes.addFlashAttribute("message","Book added successfully.");
-        return "redirect:/view-books";
+        ResponseDto responseDto = bookService.saveBookDetails(book);
+        if(responseDto.getStatus()){
+            redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
+            return "redirect:/view-books";
+        }
+        model.addAttribute("errorMessage",responseDto.getMessage());
+        model.addAttribute("authorDto",authorDto);
+        model.addAttribute("categoryDto",categoryDto);
+        model.addAttribute("book",book);
+        return "book/addBook";
     }
 
     @GetMapping("/view-books")
@@ -95,7 +103,6 @@ public class BookController {
     @GetMapping("/edit-book/{id}")
     public String editBook(@PathVariable Integer id, Model model){
         BookDto bookDto = bookService.editBook(id);
-        model.addAttribute("bookDto",bookDto);
 
         List<Author> auth = authorService.getAllAuthors();
         List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
@@ -104,6 +111,8 @@ public class BookController {
 
         model.addAttribute("authorDto",authorDto);
         model.addAttribute("categoryDto",categoryDto);
+        model.addAttribute("bookDto",bookDto);
+
 
         return "book/updateBook";
     }
@@ -113,7 +122,6 @@ public class BookController {
                              BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException {
 
         if ((bindingResult.hasErrors())){
-            model.addAttribute("bookDto",bookDto);
             List<Author> auth = authorService.getAllAuthors();
             List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
             List<Category> categories = categoryService.viewCategories();
@@ -121,6 +129,7 @@ public class BookController {
 
             model.addAttribute("authorDto",authorDto);
             model.addAttribute("categoryDto",categoryDto);
+            model.addAttribute("bookDto",bookDto);
             return "book/updateBook";
         }
         bookService.updateBook(id,bookDto);

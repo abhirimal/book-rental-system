@@ -2,9 +2,11 @@ package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.CategoryDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
 import com.abhiyan.bookrentalsystem.service.CategoryService;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +24,32 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void saveCategory(CategoryDto categoryDto) {
+    public ResponseDto saveCategory(CategoryDto categoryDto) {
         Category category = categoryDtoConverter.dtoToEntity(categoryDto);
-        categoryRepo.save(category);
+
+        try{
+            categoryRepo.save(category);
+            return ResponseDto.builder()
+                    .message("Category added successfully")
+                    .status(true)
+                    .build();
+        }
+        catch (Exception e){
+            if(e.getMessage().contains("category")){
+                return ResponseDto.builder()
+                        .message("Category already exists")
+                        .status(false)
+                        .build();
+            }
+            else{
+                e.printStackTrace();
+                return ResponseDto.builder()
+                        .message(e.getMessage())
+                        .status(false)
+                        .build();
+            }
+        }
+
     }
 
     @Override

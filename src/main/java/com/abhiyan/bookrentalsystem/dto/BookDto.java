@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Getter
@@ -26,8 +28,10 @@ public class BookDto {
     @NotNull(message = " Number of pages is required")
     Integer noOfPages;
 
-//    @NotBlank(message = "ISBN is required.")
     @NotNull(message = "ISBN is required")
+    @Range(min = 100000000,max = 999999999,message = "ISBN number should be of 9 digits" )
+//    @Min(value = 1000000000,message = "this is min check")
+//    @Max(value = 999999999,message = "this is max check")
     Long isbn;
 
     @Min(value=0,message = "Pages cannot be negative. ")

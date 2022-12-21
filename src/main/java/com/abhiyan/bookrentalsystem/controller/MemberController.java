@@ -1,6 +1,7 @@
 package com.abhiyan.bookrentalsystem.controller;
 
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
 import lombok.Value;
@@ -39,10 +40,14 @@ public class MemberController {
             model.addAttribute("memberDto",memberDto);
             return "member/registerMember";
         }
-        memberService.saveMember(memberDto);
-        redirectAttributes.addFlashAttribute("message","Member account created successfully.");
+        ResponseDto responseDto =         memberService.saveMember(memberDto);
+        if(responseDto.getStatus()){
+            redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
+            return "redirect:/view-members";
+        }
+        model.addAttribute("errorMessage",responseDto.getMessage());
+        return "member/registerMember";
 
-        return "redirect:/view-members";
     }
 
     @GetMapping("/view-members")

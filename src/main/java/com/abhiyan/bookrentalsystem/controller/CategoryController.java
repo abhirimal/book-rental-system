@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.controller;
 
 import com.abhiyan.bookrentalsystem.converter.CategoryDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.service.CategoryService;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,14 @@ public class CategoryController {
             model.addAttribute("categoryDto",categoryDto);
             return "category/addCategory";
         }
-        categoryService.saveCategory(categoryDto);
-        redirectAttributes.addFlashAttribute("message","Category added successfully.");
-        return "redirect:/view-categories";
+
+        ResponseDto responseDto = categoryService.saveCategory(categoryDto);
+        if(responseDto.getStatus()){
+            redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
+            return "redirect:/view-categories";
+        }
+        model.addAttribute("errorMessage",responseDto.getMessage());
+        return "category/addCategory";
     }
 
     @GetMapping("/view-categories")

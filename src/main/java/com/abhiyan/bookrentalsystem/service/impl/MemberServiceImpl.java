@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 
 import com.abhiyan.bookrentalsystem.converter.MemberDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
@@ -25,16 +26,40 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void saveMember(MemberDto memberDto) {
+    public ResponseDto saveMember(MemberDto memberDto) {
         Member member = memberDtoConverter.dtoToEntity(memberDto);
-        memberRepo.save(member);
+
+        try{
+            memberRepo.save(member);
+            return ResponseDto.builder()
+                    .status(true)
+                    .message("Member added successfully")
+                    .build();
+        }
+        catch (Exception e){
+
+            if(e.getMessage().contains("email")){
+                return ResponseDto.builder()
+                        .status(false)
+                        .message("Member already exists for given email address.")
+                        .build();
+            }
+            else{
+                e.printStackTrace();
+                return ResponseDto.builder()
+                        .status(false)
+                        .message(e.getMessage())
+                        .build();
+            }
+
+        }
 
         //send email
-        emailSenderService.sendEmail(member.getEmail(),
-                "Hello "+member.getName()+", \n" +
-                        "Your account has been created in Book Rental System \n"+
-                        "Thank You.",
-                "Account created in Book Rental");
+//        emailSenderService.sendEmail(member.getEmail(),
+//                "Hello "+member.getName()+", \n" +
+//                        "Your account has been created in Book Rental System \n"+
+//                        "Thank You.",
+//                "Account created in Book Rental");
     }
 
     @Override

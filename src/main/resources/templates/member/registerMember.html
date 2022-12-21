@@ -23,6 +23,12 @@
         <a class="btn btn-primary" th:href="@{/view-members}" role="button" style="float: right"> Back </a>
 
         <br>
+        <br>
+        <div th:if="${errorMessage}" >
+            <div class="alert alert-danger">
+                <span th:text="${errorMessage}"></span>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
