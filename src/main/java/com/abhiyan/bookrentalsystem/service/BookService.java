@@ -6,13 +6,14 @@ import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
 public interface BookService {
 
 
-    ResponseDto saveBookDetails(BookDto book) throws ParseException;
+    ResponseDto saveBookDetails(BookDto book) throws ParseException, IOException;
 
     List<BookDto> getAllBooks();
 

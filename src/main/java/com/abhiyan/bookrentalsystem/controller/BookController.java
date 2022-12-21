@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class BookController {
 
     @PostMapping("/add-book/new")
     public String addNewBook(@Valid @ModelAttribute("book") BookDto book, BindingResult bindingResult,
-                             Model model, RedirectAttributes redirectAttributes) throws ParseException {
+                             Model model, RedirectAttributes redirectAttributes) throws ParseException, IOException {
 
         List<Author> auth = authorService.getAllAuthors();
         List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);

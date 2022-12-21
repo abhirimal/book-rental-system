@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 import javax.validation.constraints.Pattern;
@@ -46,7 +47,11 @@ public class BookDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     String publishedDate;
 
-    String photo;
+    // used while saving
+    MultipartFile imageFile;
+
+    //used while listening or sending data to front end
+    String filepath;
 
     @NotEmpty(message = "Select atleast one author")
     List<Integer> authorId;

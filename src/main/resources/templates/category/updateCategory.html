@@ -37,13 +37,13 @@
 
                         <div class="form-group">
                             <label> Category Description </label>
-                            <input
-                                    type="text"
-                                    name="authorEmail"
-                                    th:field="*{description}"
-                                    class="form-control"
-                                    placeholder="Enter Category Description"
-                            />
+                            <textarea cols="30" rows="5"
+                                      name="description"
+                                      th:field="*{description}"
+                                      class="form-control"
+                                      placeholder="Enter Description">
+
+                                </textarea>
                         </div>
                         <p class="alert alert-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Error </p>
 

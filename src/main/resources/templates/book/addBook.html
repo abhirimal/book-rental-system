@@ -27,7 +27,7 @@
         </div>
         <br>
         <h1> Add New Book </h1>
-        <form class="row g-3" th:action="@{/add-book/new}" th:object="${book}" method="POST">
+        <form class="row g-3" th:action="@{/add-book/new}" th:object="${book}" method="POST" enctype="multipart/form-data">
 
             <div class="col-md-6">
                 <label class="form-label">Enter Book Name</label>
@@ -148,6 +148,8 @@
                 <input
                         type="file"
                         class="form-control form-control-sm"
+                        th:field="*{imageFile}"
+
                 />
             </div>
 
