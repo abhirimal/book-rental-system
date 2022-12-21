@@ -23,19 +23,26 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
+    @Column(name = "name")
     String name;
 
+    @Column(name = "no_of_pages")
     Integer noOfPages;
 
+    @Column(name = "isbn")
     Long isbn;
 
+    @Column(name = "rating")
     Double rating;
 
+    @Column(name = "stock_count")
     Integer stockCount;
 
+    @Column(name="published_date")
     LocalDate publishedDate;
 
-    String photo;
+    @Column(name = "file_path")
+    String filePath;
 
     @ManyToMany
     @JoinTable(name="author_book",

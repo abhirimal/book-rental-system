@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
             book.setPublishedDate(date);
 //        long timeStamp = System.currentTimeMillis();
 
-            book.setPhoto(bookDto.getPhoto());
+//            book.setPhoto(bookDto.getPhoto());
             book.setStockCount(bookDto.getStockCount());
 
             Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
@@ -108,7 +108,7 @@ public class BookServiceImpl implements BookService {
         book.setCategory(category);
         book.setRating(bookDto.getRating());
         book.setNoOfPages(bookDto.getNoOfPages());
-        book.setPhoto(bookDto.getPhoto());
+//        book.setPhoto(bookDto.getPhoto());
         book.setStockCount(bookDto.getStockCount());
 
         StringToDate sDate = new StringToDate();

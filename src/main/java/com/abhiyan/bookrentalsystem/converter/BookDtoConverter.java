@@ -16,10 +16,12 @@ public class BookDtoConverter {
         bookDto.setNoOfPages(book.getNoOfPages());
         bookDto.setIsbn(book.getIsbn());
         bookDto.setRating(book.getRating());
-//        bookDto.setPublishedDate(book.getPublishedDate());
-        bookDto.setPhoto(book.getPhoto());
+        bookDto.setPublishedDate(String.valueOf(book.getPublishedDate()));
+//        bookDto.setPhoto(book.getPhoto());
         bookDto.setStockCount(book.getStockCount());
-//        bookDto.setCategoryId(book.getCategory().getId());
+        bookDto.setCategoryId(book.getCategory().getId());
+        bookDto.setCategory(book.getCategory());
+        bookDto.setAuthors(book.getAuthors());
         return bookDto;
     }
 
@@ -30,7 +32,7 @@ public class BookDtoConverter {
         book.setIsbn(bookDto.getIsbn());
         book.setRating(bookDto.getRating());
 //        book.setPublishedDate(bookDto.getPublishedDate());
-        book.setPhoto(bookDto.getPhoto());
+//        book.setPhoto(bookDto.getPhoto());
         book.setStockCount(bookDto.getStockCount());
 //        book.getCategory().setId(bookDto.getCategoryId());
         return book;
