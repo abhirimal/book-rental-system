@@ -7,11 +7,13 @@ import com.abhiyan.bookrentalsystem.dto.BookDto;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
+import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.service.impl.AuthorServiceImpl;
 import com.abhiyan.bookrentalsystem.service.impl.BookServiceImpl;
 import com.abhiyan.bookrentalsystem.service.CategoryService;
+import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -120,7 +122,7 @@ public class BookController {
 
     @PostMapping("/update-book/{id}")
     public String updateBook(@PathVariable Integer id,@Valid @ModelAttribute("bookDto") BookDto bookDto,
-                             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException {
+                             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException, IOException {
 
         if ((bindingResult.hasErrors())){
             List<Author> auth = authorService.getAllAuthors();
@@ -136,5 +138,12 @@ public class BookController {
         bookService.updateBook(id,bookDto);
         redirectAttributes.addFlashAttribute("message","Book data updated successfully.");
         return "redirect:/view-books";
+    }
+
+    @GetMapping("/view-book-details/{id}")
+    public String viewBookDetailById(@PathVariable int id, Model model) throws IOException {
+        BookDto book = bookService.viewBookDetail(id);
+        model.addAttribute("book",book);
+        return "book/bookDetails";
     }
 }

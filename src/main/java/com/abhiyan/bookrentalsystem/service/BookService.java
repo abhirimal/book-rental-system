@@ -20,9 +20,11 @@ public interface BookService {
     BookDto editBook(Integer id);
 
 
-    BookDto updateBook(Integer id, BookDto bookDto) throws ParseException;
+    BookDto updateBook(Integer id, BookDto bookDto) throws ParseException, IOException;
 
     void deleteBookById(Integer id);
 
     List<BookDto> findAllBooksWithStock();
+
+    BookDto viewBookDetail(int id) throws IOException;
 }

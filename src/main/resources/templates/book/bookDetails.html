@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title> Category </title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <br>
+        <br>
+        <a class="btn btn-primary" th:href="@{/view-books}" role="button" style="float: right"> Back </a>
+        <br>
+        <h1> Book Details </h1>
+        <br>
+        <br>
+
+
+        <form class="row g-3" th:object="${book}"  >
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> Book Name </p>
+                <p class="font-weight-normal" th:text="${book.name}" > </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> Stock </p>
+                <p class="font-weight-normal" th:text="${book.stockCount}"> </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> ISBN </p>
+                <p class="font-weight-normal" th:text="${book.isbn}"> </p>
+            </div>
+
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> Category </p>
+                <p class="font-weight-normal" th:text="${book.category.name}"> </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> Rating </p>
+                <p class="font-weight-normal" th:text="${book.rating}"> </p>
+            </div>
+
+
+            <div class="col-md-4">
+                <p class="font-weight-bold"> Number of Pages </p>
+                <p class="font-weight-normal" th:text="${book.noOfPages}"> </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Book Image </p>
+                <img th:src="${book.filePath} " th:height="150px" th:width="100px" />
+
+            </div>
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <div >
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

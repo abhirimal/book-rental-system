@@ -109,7 +109,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto updateBook(Integer id, BookDto bookDto) throws ParseException {
+    public BookDto updateBook(Integer id, BookDto bookDto) throws ParseException, IOException {
         Book book = bookRepo.findById(id).orElse(null);
         book.setName(bookDto.getName());
         book.setIsbn(bookDto.getIsbn());
@@ -118,17 +118,21 @@ public class BookServiceImpl implements BookService {
         book.setCategory(category);
         book.setRating(bookDto.getRating());
         book.setNoOfPages(bookDto.getNoOfPages());
-//        book.setPhoto(bookDto.getPhoto());
+
+        MultipartFile multipartFile = bookDto.getImageFile();
+        String filePath = fileStorageUtils.storeFile(multipartFile);
+        book.setFilePath(filePath);
+
+        book.setFilePath(book.getFilePath());
         book.setStockCount(bookDto.getStockCount());
 
         StringToDate sDate = new StringToDate();
         LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
         book.setPublishedDate(date);
-        //        book.setAuthors(bookDto.getAuthor());
+        book.setAuthors(bookDto.getAuthors());
 
         List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
         book.setAuthors(authors);
-        bookRepo.save(book);
         bookRepo.save(book);
         return bookDto;
     }
@@ -143,5 +147,26 @@ public class BookServiceImpl implements BookService {
         List<Book> book = bookRepo.findAllBookWithStock();
         List<BookDto> bookDtos = bookDtoConverter.entityToDto(book);
         return bookDtos;
+    }
+
+    @Override
+    public BookDto viewBookDetail(int id) throws IOException {
+        Book book = bookRepo.findById(id).orElse(null);
+        BookDto bookDto = new BookDto();
+        bookDto.setId(book.getId());
+        bookDto.setName(book.getName());
+        bookDto.setNoOfPages(book.getNoOfPages());
+        bookDto.setIsbn(book.getIsbn());
+        bookDto.setRating(book.getRating());
+        bookDto.setPublishedDate(String.valueOf(book.getPublishedDate()));
+        bookDto.setStockCount(book.getStockCount());
+        bookDto.setCategoryId(book.getCategory().getId());
+        bookDto.setCategory(book.getCategory());
+        bookDto.setAuthors(book.getAuthors());
+        // for sending base64file
+        bookDto.setFilePath(fileStorageUtils.getBase64FileFromFilePath(book.getFilePath()));
+
+        return bookDto;
+
     }
 }

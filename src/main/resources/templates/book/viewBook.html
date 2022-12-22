@@ -38,7 +38,7 @@
             </thead>
             <tbody>
             <tr th:each="book : ${book}">
-                <td th:text="${book.name}"></td>
+                <td> <a th:href="@{/view-book-details/{id}(id=${book.id})}" th:text="${book.name}">   </a></td>
                 <td th:text="${book.isbn}"></td>
                 <td th:text="${book.stockCount}"></td>
                 <td>

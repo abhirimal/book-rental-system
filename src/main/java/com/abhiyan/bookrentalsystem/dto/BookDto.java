@@ -51,7 +51,7 @@ public class BookDto {
     MultipartFile imageFile;
 
     //used while listening or sending data to front end
-    String filepath;
+    String filePath;
 
     @NotEmpty(message = "Select atleast one author")
     List<Integer> authorId;

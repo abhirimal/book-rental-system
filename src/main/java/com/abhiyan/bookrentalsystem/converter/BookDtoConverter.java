@@ -17,7 +17,7 @@ public class BookDtoConverter {
         bookDto.setIsbn(book.getIsbn());
         bookDto.setRating(book.getRating());
         bookDto.setPublishedDate(String.valueOf(book.getPublishedDate()));
-//        bookDto.setPhoto(book.getPhoto());
+        bookDto.setFilePath(book.getFilePath());
         bookDto.setStockCount(book.getStockCount());
         bookDto.setCategoryId(book.getCategory().getId());
         bookDto.setCategory(book.getCategory());
