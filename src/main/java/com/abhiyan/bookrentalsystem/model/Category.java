@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Table(name="category",uniqueConstraints ={
-        @UniqueConstraint(name="category",columnNames = {"id","name"})
+        @UniqueConstraint(name="category",columnNames = {"name","account_state"})
 } )
 public class Category {
 
@@ -30,6 +30,7 @@ public class Category {
     String description;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_state")
     private AccountState accountState;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
