@@ -1,5 +1,7 @@
 package com.abhiyan.bookrentalsystem.model;
 
+import com.abhiyan.bookrentalsystem.enums.AccountState;
+import com.abhiyan.bookrentalsystem.enums.RentType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 
 @Table(name="category",uniqueConstraints ={
-        @UniqueConstraint(name="category",columnNames = {"name"})
+        @UniqueConstraint(name="category",columnNames = {"id","name"})
 } )
 public class Category {
 
@@ -26,6 +28,9 @@ public class Category {
     String name;
 
     String description;
+
+    @Enumerated(value = EnumType.STRING)
+    private AccountState accountState;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Book> bookList;

@@ -32,4 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login-error");
     }
+
+
 }

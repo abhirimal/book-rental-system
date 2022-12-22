@@ -3,11 +3,13 @@ package com.abhiyan.bookrentalsystem.service.impl;
 import com.abhiyan.bookrentalsystem.converter.CategoryDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.CategoryDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.repository.CategoryRepo;
 import com.abhiyan.bookrentalsystem.service.CategoryService;
 import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryDtoConverter.dtoToEntity(categoryDto);
 
         try{
+            category.setAccountState(AccountState.ACTIVE);
             categoryRepo.save(category);
             return ResponseDto.builder()
                     .message("Category added successfully")
@@ -54,12 +57,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> viewCategories() {
-        return categoryRepo.findAll();
+        return categoryRepo.selectAllActiveCategory();
     }
 
+    @Transactional
     @Override
     public void deleteCategory(Integer id) {
-        categoryRepo.deleteById(id);
+        categoryRepo.softDeleteCategoryById(id);
     }
 
     @Override

@@ -4,3 +4,4 @@ public enum RentType {
     RENT,
     RETURN;
 }
+
