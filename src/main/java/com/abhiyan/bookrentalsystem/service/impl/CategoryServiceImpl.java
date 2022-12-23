@@ -27,10 +27,34 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseDto saveCategory(CategoryDto categoryDto) {
-        Category category = categoryDtoConverter.dtoToEntity(categoryDto);
+
 
         try{
+            Category existingActiveCategory = categoryRepo.findByNameAndActiveStatus(categoryDto.getName());
+            Category existingDeletedCategory = categoryRepo.findByNameAndDeletedStatus(categoryDto.getName());
+
+//            if(existingActiveCategory!=null){
+//                return ResponseDto.builder()
+//                        .message("Category already exists")
+//                        .status(false)
+//                        .build();
+//
+//            }
+
+            if(existingDeletedCategory!=null){
+                existingDeletedCategory.setAccountState(AccountState.ACTIVE);
+                existingDeletedCategory.setDescription(categoryDto.getDescription());
+                categoryRepo.save(existingDeletedCategory);
+                return ResponseDto.builder()
+                        .message("Category added successfully")
+                        .status(true)
+                        .build();
+
+            }
+
+            Category category = categoryDtoConverter.dtoToEntity(categoryDto);
             category.setAccountState(AccountState.ACTIVE);
+
             categoryRepo.save(category);
             return ResponseDto.builder()
                     .message("Category added successfully")
@@ -60,7 +84,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepo.selectAllActiveCategory();
     }
 
-    @Transactional
+
     @Override
     public void deleteCategory(Integer id) {
         categoryRepo.softDeleteCategoryById(id);
