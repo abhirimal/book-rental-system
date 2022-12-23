@@ -40,6 +40,7 @@ public class AuthorServiceImpl implements AuthorService {
             Author existingDeletedAuthor = authorRepo.findDeletedStateAuthor(authorDto.getEmail());
 
             if(existingDeletedAuthor!=null){
+                System.out.println("inside update");
                 existingDeletedAuthor.setAccountState(AccountState.ACTIVE);
                 authorRepo.save(existingDeletedAuthor);
                 return ResponseDto.builder()
@@ -49,7 +50,7 @@ public class AuthorServiceImpl implements AuthorService {
             }
 
             Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
-
+            newAuthor.setAccountState(AccountState.ACTIVE);
             authorRepo.save(newAuthor);
 
             emailSenderService.sendEmail(newAuthor.getEmail(),
@@ -119,7 +120,7 @@ public class AuthorServiceImpl implements AuthorService {
 //    @Transactional
     @Override
     public void deleteAuthorById(Integer id) {
-        authorRepo.deleteById(id);
+        authorRepo.softDeleteAuthorById(id);
 //        bookRepo.deleteAuthorBookByAuthorId(id);
 //        bookRepo.deleteBookByAuthorId(id);
     }
