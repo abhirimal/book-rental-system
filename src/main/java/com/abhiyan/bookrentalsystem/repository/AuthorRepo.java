@@ -13,7 +13,10 @@ import java.util.Optional;
 public interface AuthorRepo extends JpaRepository<Author, Integer> {
     Optional<Object> findByEmail(String email);
 
-//    @Query(nativeQuery = true, value = "select * from author \n" +
-//            "where activeStatus=true")
-//    List<Author> findAllActiveAuthour();
+    @Query(nativeQuery = true, value = "SELECT * from author where account_state='ACTIVE'")
+    List<Author> findAllActiveAuthor();
+
+    @Query(nativeQuery = true, value = "SELECT * from author where name=?1 and " +
+            "account_state='DELETED'")
+    Author findDeletedStateAuthor(String name);
 }

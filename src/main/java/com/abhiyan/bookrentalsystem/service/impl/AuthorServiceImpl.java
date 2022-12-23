@@ -3,6 +3,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.repository.AuthorRepo;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
@@ -34,11 +35,28 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public ResponseDto saveAuthorDetails(AuthorDto authorDto) throws RuntimeException {
 
-        Author existingAuthor = (Author) authorRepo.findByEmail(authorDto.getEmail()).orElse(null);
-        Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
 
         try{
+            Author existingDeletedAuthor = authorRepo.findDeletedStateAuthor(authorDto.getEmail());
+
+            if(existingDeletedAuthor!=null){
+                existingDeletedAuthor.setAccountState(AccountState.ACTIVE);
+                authorRepo.save(existingDeletedAuthor);
+                return ResponseDto.builder()
+                        .message("Author added successfully")
+                        .status(true)
+                        .build();
+            }
+
+            Author newAuthor = authorDtoConverter.dtoToEntity(authorDto);
+
             authorRepo.save(newAuthor);
+
+            emailSenderService.sendEmail(newAuthor.getEmail(),
+                    "Hello "+newAuthor.getName()+", \n" +
+                            "Your account has been created in Book Rental System \n"+
+                            "Thank You.",
+                    "Account created in Book Rental");
 
             return ResponseDto.builder()
                     .message("Author added successfully")
@@ -72,17 +90,13 @@ public class AuthorServiceImpl implements AuthorService {
         // newAuthor.setMobile_number(authorDto.getMobile_number());
         // authorRepo.save(newAuthor);
 
-        //send email
-//        emailSenderService.sendEmail(newAuthor.getEmail(),
-//                "Hello "+newAuthor.getName()+", \n" +
-//                        "Your account has been created in Book Rental System \n"+
-//                "Thank You.",
-//                "Account created in Book Rental");
+       // send email
+
     }
 
     @Override
     public List<Author> getAllAuthors() {
-        return authorRepo.findAll();
+        return authorRepo.findAllActiveAuthor();
     }
 
     @Override

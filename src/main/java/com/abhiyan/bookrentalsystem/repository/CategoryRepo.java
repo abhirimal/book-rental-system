@@ -29,5 +29,5 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT * from category where name=?1 and " +
             "account_state='DELETED' ")
-    Category findByNameAndDeletedStatus(String name);
+    Category findDeletedStateCategory(String name);
 }

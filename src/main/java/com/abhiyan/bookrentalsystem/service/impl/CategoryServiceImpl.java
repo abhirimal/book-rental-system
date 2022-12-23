@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         try{
             Category existingActiveCategory = categoryRepo.findByNameAndActiveStatus(categoryDto.getName());
-            Category existingDeletedCategory = categoryRepo.findByNameAndDeletedStatus(categoryDto.getName());
+            Category existingDeletedCategory = categoryRepo.findDeletedStateCategory(categoryDto.getName());
 
 //            if(existingActiveCategory!=null){
 //                return ResponseDto.builder()
@@ -40,6 +40,11 @@ public class CategoryServiceImpl implements CategoryService {
 //                        .build();
 //
 //            }
+
+            /**
+             * if the new added category name already exists in a deleted state then just update
+             * the state and desc of the existing category
+             */
 
             if(existingDeletedCategory!=null){
                 existingDeletedCategory.setAccountState(AccountState.ACTIVE);
