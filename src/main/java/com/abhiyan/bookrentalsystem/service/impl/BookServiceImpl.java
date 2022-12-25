@@ -3,6 +3,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 import com.abhiyan.bookrentalsystem.converter.BookDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.BookDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
@@ -41,10 +42,42 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ResponseDto saveBookDetails(BookDto bookDto) throws ParseException, IOException {
-        Book book = new Book();
-
 
         try{
+
+            Book existingDeletedBook = bookRepo.findDeletedStateBook(bookDto.getIsbn());
+            if(existingDeletedBook!=null){
+                existingDeletedBook.setAccountState(AccountState.ACTIVE);
+                existingDeletedBook.setName(bookDto.getName());
+                existingDeletedBook.setNoOfPages(bookDto.getNoOfPages());
+                existingDeletedBook.setIsbn(bookDto.getIsbn());
+                existingDeletedBook.setRating(bookDto.getRating());
+
+                StringToDate sDate = new StringToDate();
+                LocalDate date = sDate.StringToDate(bookDto.getPublishedDate());
+                existingDeletedBook.setPublishedDate(date);
+
+                existingDeletedBook.setStockCount(bookDto.getStockCount());
+
+                //file
+                MultipartFile multipartFile = bookDto.getImageFile();
+                String filePath = fileStorageUtils.storeFile(multipartFile);
+                existingDeletedBook.setFilePath(filePath);
+
+                Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);
+                existingDeletedBook.setCategory(category);
+
+                List<Author> authors = authorRepo.findAllById(bookDto.getAuthorId());
+                existingDeletedBook.setAuthors(authors);
+                bookRepo.save(existingDeletedBook);
+                return ResponseDto.builder()
+                        .message("Book added successfully.")
+                        .status(true)
+                        .build();
+            }
+
+            Book book = new Book();
+            book.setAccountState(AccountState.ACTIVE);
             book.setName(bookDto.getName());
             book.setNoOfPages(bookDto.getNoOfPages());
             book.setIsbn(bookDto.getIsbn());
@@ -96,7 +129,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAllBooks() {
-        List<Book> book = bookRepo.findAll();
+        List<Book> book = bookRepo.findAllBookWithActiveState();
         List<BookDto> bookDto = bookDtoConverter.entityToDto(book);
         return bookDto;
     }
@@ -139,7 +172,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(Integer id) {
-        bookRepo.deleteById(id);
+        bookRepo.softDeleteBookById(id);
     }
 
     @Override

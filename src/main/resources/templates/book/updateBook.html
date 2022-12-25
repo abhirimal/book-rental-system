@@ -106,7 +106,7 @@
             <div class="col-md-6">
                 <label class="form-label">Author</label>
                 <select class="form-select " size="3" multiple th:field="*{authorId}">
-                    <option selected th:value="*{authorId}">Select Authors</option>
+                    <option selected th:value="${null}">Select Authors</option>
                     <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}"
                             th:value="${authorDto.id}"> </option>
 
