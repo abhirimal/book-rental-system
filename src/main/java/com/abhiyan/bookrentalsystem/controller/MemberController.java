@@ -25,28 +25,28 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/add-member")
+    @GetMapping("/register-member")
     public String addMember(Model model){
         MemberDto memberDto = new MemberDto();
         model.addAttribute("member",memberDto);
-        return "member/registerMember";
+        return "registerPage";
     }
 
-    @PostMapping("/add-member/new")
+    @PostMapping("/register-member/new")
     public String addNewMember(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult,
                                Model model, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberDto",memberDto);
-            return "member/registerMember";
+            return "registerPage";
         }
         ResponseDto responseDto =         memberService.saveMember(memberDto);
         if(responseDto.getStatus()){
             redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
-            return "redirect:/view-members";
+            return "dashboard";
         }
         model.addAttribute("errorMessage",responseDto.getMessage());
-        return "member/registerMember";
+        return "registerPage";
 
     }
 

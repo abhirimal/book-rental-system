@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8">
-<!--  <link rel="stylesheet" th:href="@{~/css/home.css}">-->
-  <title>NCIT</title>
+    <meta charset="UTF-8">
+    <!--  <link rel="stylesheet" th:href="@{~/css/home.css}">-->
+    <title>NCIT</title>
 </head>
 <body>
 
 <div class="container" id="mainContent">
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-sm-3">
-      <div th:insert="fragments/sidebar.html"></div>
+        <div class="col-sm-3">
+            <div sec:authorize="isAuthenticated()">
+
+                <div th:insert="fragments/sidebar.html"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <div layout:fragment="content"></div>
+        </div>
+
     </div>
-
-    <div class="col-sm-9">
-      <div layout:fragment="content"></div>
-    </div>
-
-  </div>
 </div>
 
 <!--<footer th:insert="fragments/footer.html"> </footer>-->
