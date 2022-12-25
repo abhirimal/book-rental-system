@@ -88,7 +88,7 @@ public class CategoryController {
     }
 
     @PostMapping("/search-category")
-    public String searchStudent(@RequestParam(value="categoryName", required=true) String categoryName, Model model){
+    public String searchCategory(@RequestParam(value="categoryName", required=true) String categoryName, Model model){
         List<Category> foundCategory = categoryService.searchCategory(categoryName);
         model.addAttribute("category",foundCategory);
         return "category/viewCategory";

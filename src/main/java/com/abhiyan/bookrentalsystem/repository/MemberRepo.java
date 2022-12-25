@@ -1,6 +1,7 @@
 package com.abhiyan.bookrentalsystem.repository;
 
 import com.abhiyan.bookrentalsystem.model.Author;
+import com.abhiyan.bookrentalsystem.model.Book;
 import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +26,10 @@ public interface MemberRepo extends JpaRepository <Member,Integer> {
     @Query(nativeQuery = true,value = "SELECT * from member where " +
             "account_state='DELETED' and email=?1")
     Member findDeletedStateMember(String email);
+
+    @Query(nativeQuery = true, value = "select *\n" +
+            "from member m\n" +
+            "where account_state='ACTIVE' and lower(m.name) like concat(lower(?1), '%')")
+    List<Member> findAllByName(String memberName);
 
 }

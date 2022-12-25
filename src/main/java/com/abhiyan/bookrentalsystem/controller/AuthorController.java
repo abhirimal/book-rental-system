@@ -93,7 +93,7 @@ public class AuthorController {
     }
 
     @PostMapping("/search-author")
-    public String searchStudent(@RequestParam(value="authorName", required=true) String authorName, Model model){
+    public String searchAuthor(@RequestParam(value="authorName", required=true) String authorName, Model model){
         List<Author> foundAuthor = authorService.searchAuthor(authorName);
         model.addAttribute("author",foundAuthor);
         return "author/viewAuthors";

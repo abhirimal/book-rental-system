@@ -11,7 +11,13 @@
 
 <div layout:fragment="content">
     <div class="container">
-        <br>
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" th:action="@{/search-member}" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                       aria-label="Search" name="memberName">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search Members</button>
+            </form>
+        </nav>
         <div class="row">
             <h1> All Members</h1>
         </div>

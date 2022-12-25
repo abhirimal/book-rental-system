@@ -2,19 +2,19 @@ package com.abhiyan.bookrentalsystem.controller;
 
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.model.Author;
+import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
 import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -80,6 +80,13 @@ public class MemberController {
         memberService.updateMember(id, memberDto);
         redirectAttributes.addFlashAttribute("message","Member account updated successfully.");
         return "redirect:/view-members";
+    }
+
+    @PostMapping("/search-member")
+    public String searchMember(@RequestParam(value="memberName", required=true) String memberName, Model model){
+        List<Member> foundMember = memberService.searchMember(memberName);
+        model.addAttribute("member",foundMember);
+        return "member/viewMembers";
     }
 }
 

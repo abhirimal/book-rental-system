@@ -144,7 +144,7 @@ public class BookController {
     }
 
     @PostMapping("/search-book")
-    public String searchStudent(@RequestParam(value="bookName", required=true) String bookName, Model model){
+    public String searchBook(@RequestParam(value="bookName", required=true) String bookName, Model model){
         List<Book> foundBook = bookService.searchBook(bookName);
         model.addAttribute("book",foundBook);
         return "book/viewBook";

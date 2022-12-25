@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.service;
 
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.model.Member;
 
 import java.net.Inet4Address;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface MemberService {
 
     void deleteMember(Integer id);
 
+    List<Member> searchMember(String memberName);
 }

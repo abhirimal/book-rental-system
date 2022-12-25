@@ -107,4 +107,9 @@ public class MemberServiceImpl implements MemberService {
     public void deleteMember(Integer id) {
     memberRepo.softDeleteMemberById(id);
     }
+
+    @Override
+    public List<Member> searchMember(String memberName) {
+        return memberRepo.findAllByName(memberName);
+    }
 }
