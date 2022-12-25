@@ -106,7 +106,6 @@ public class BookController {
     @GetMapping("/edit-book/{id}")
     public String editBook(@PathVariable Integer id, Model model){
         BookDto bookDto = bookService.editBook(id);
-
         List<Author> auth = authorService.getAllAuthors();
         List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
         List<Category> categories = categoryService.viewCategories();
@@ -123,7 +122,7 @@ public class BookController {
     @PostMapping("/update-book/{id}")
     public String updateBook(@PathVariable Integer id,@Valid @ModelAttribute("bookDto") BookDto bookDto,
                              BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException, IOException {
-
+        System.out.println("inside update controller");
         if ((bindingResult.hasErrors())){
             List<Author> auth = authorService.getAllAuthors();
             List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);

@@ -112,5 +112,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDtoConverter.entityToDto(existingCategory);
     }
 
+    @Override
+    public List<Category> searchCategory(String categoryName) {
+        return categoryRepo.findAllByName(categoryName);
+    }
+
 
 }

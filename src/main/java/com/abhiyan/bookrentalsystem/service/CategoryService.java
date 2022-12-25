@@ -17,4 +17,6 @@ public interface CategoryService {
     public CategoryDto editCategory(Integer id);
 
     public CategoryDto updateCategory(Integer id, CategoryDto categoryDto);
+
+    List<Category> searchCategory(String categoryName);
 }

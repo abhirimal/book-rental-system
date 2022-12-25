@@ -151,6 +151,8 @@
                         th:field="*{imageFile}"
 
                 />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"> Error </p>
+
             </div>
 
             <br>

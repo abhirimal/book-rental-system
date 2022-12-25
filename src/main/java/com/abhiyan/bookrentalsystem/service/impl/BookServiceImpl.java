@@ -144,6 +144,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto updateBook(Integer id, BookDto bookDto) throws ParseException, IOException {
         Book book = bookRepo.findById(id).orElse(null);
+        System.out.println("inside update book");
         book.setName(bookDto.getName());
         book.setIsbn(bookDto.getIsbn());
         Category category = categoryRepo.findById(bookDto.getCategoryId()).orElse(null);

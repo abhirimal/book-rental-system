@@ -8,10 +8,7 @@ import com.abhiyan.bookrentalsystem.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -88,6 +85,13 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("message","Category updated successfully.");
         return "redirect:/view-categories";
 
+    }
+
+    @PostMapping("/search-category")
+    public String searchStudent(@RequestParam(value="categoryName", required=true) String categoryName, Model model){
+        List<Category> foundCategory = categoryService.searchCategory(categoryName);
+        model.addAttribute("category",foundCategory);
+        return "category/viewCategory";
     }
 
 

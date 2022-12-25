@@ -30,4 +30,9 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
     @Query(nativeQuery = true, value = "SELECT * from category where name=?1 and " +
             "account_state='DELETED' ")
     Category findDeletedStateCategory(String name);
+
+    @Query(nativeQuery = true, value = "select *\n" +
+            "from category c\n" +
+            "where lower(c.name) like concat(lower(?1), '%')")
+    List<Category> findAllByName(String CategoryName);
 }
