@@ -4,6 +4,7 @@ import com.abhiyan.bookrentalsystem.converter.AuthorDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.AuthorDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.model.Author;
+import com.abhiyan.bookrentalsystem.model.Category;
 import com.abhiyan.bookrentalsystem.service.impl.AuthorServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,6 +90,13 @@ public class AuthorController {
         authorService.deleteAuthorById(id);
         redirectAttributes.addFlashAttribute("message","Account deleted successfully.");
         return "redirect:/view-authors";
+    }
+
+    @PostMapping("/search-author")
+    public String searchStudent(@RequestParam(value="authorName", required=true) String authorName, Model model){
+        List<Author> foundAuthor = authorService.searchAuthor(authorName);
+        model.addAttribute("author",foundAuthor);
+        return "author/viewAuthors";
     }
 
 }

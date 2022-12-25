@@ -124,4 +124,9 @@ public class AuthorServiceImpl implements AuthorService {
 //        bookRepo.deleteAuthorBookByAuthorId(id);
 //        bookRepo.deleteBookByAuthorId(id);
     }
+
+    @Override
+    public List<Author> searchAuthor(String authorName) {
+        return authorRepo.findAllByName(authorName);
+    }
 }

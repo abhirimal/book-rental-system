@@ -2,6 +2,7 @@ package com.abhiyan.bookrentalsystem.repository;
 
 import com.abhiyan.bookrentalsystem.model.Author;
 import com.abhiyan.bookrentalsystem.model.Book;
+import com.abhiyan.bookrentalsystem.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +27,10 @@ public interface AuthorRepo extends JpaRepository<Author, Integer> {
     @Query(nativeQuery = true, value = "SELECT * from author where email=?1 and " +
             "account_state='DELETED'")
     Author findDeletedStateAuthor(String name);
+
+    @Query(nativeQuery = true, value = "select *\n" +
+            "from author a\n" +
+            "where account_state='ACTIVE' and lower(a.name) like concat(lower(?1), '%')")
+    List<Author> findAllByName(String authorName);
 
 }

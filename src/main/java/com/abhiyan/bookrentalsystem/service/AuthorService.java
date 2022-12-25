@@ -18,4 +18,6 @@ public interface AuthorService {
     AuthorDto updateAuthor(Integer id, AuthorDto authorDto);
 
     void deleteAuthorById(Integer id);
+
+    List<Author> searchAuthor(String authorName);
 }
