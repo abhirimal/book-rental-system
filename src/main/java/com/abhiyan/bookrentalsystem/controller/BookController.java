@@ -17,10 +17,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -144,5 +141,12 @@ public class BookController {
         BookDto book = bookService.viewBookDetail(id);
         model.addAttribute("book",book);
         return "book/bookDetails";
+    }
+
+    @PostMapping("/search-book")
+    public String searchStudent(@RequestParam(value="bookName", required=true) String bookName, Model model){
+        List<Book> foundBook = bookService.searchBook(bookName);
+        model.addAttribute("book",foundBook);
+        return "book/viewBook";
     }
 }

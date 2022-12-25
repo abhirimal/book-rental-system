@@ -203,4 +203,9 @@ public class BookServiceImpl implements BookService {
         return bookDto;
 
     }
+
+    @Override
+    public List<Book> searchBook(String bookName) {
+        return bookRepo.findAllByName(bookName);
+    }
 }
