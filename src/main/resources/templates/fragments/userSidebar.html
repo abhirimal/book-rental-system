@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Book Rental System</title>
+    <link rel="stylesheet" th:href="@{~/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{~/css/home.css}">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
 </head>
 <body>
+<div class="btn">
+    <span class="fas fa-bars"></span>
+</div>
+<nav class="sidebar">
+    <div class="text">
+        Book Rental
+    </div>
+    <ul>
+        <li><a th:href="@{/home}"> Dashboard </a></li>
+        <li><a th:href="@{/home}"> View Books </a></li>
+        <li><a th:href="@{/home}"> Return Book </a></li>
+        <li><a th:href="@{/home}"> Edit Profile </a></li>
 
+        </li>
+        <li><a th:href="@{/logout}"> Logout </a></li>
+    </ul>
+</nav>
+
+<script>
+    // $('.btn').click(function(){
+    //     $(this).toggleClass("click");
+    //     $('.sidebar').toggleClass("show");
+    // });
+    $('.feat-btn').click(function(){
+        $('nav ul .feat-show').toggleClass("show");
+        $('nav ul .first').toggleClass("rotate");
+    });
+    $('.serv-btn').click(function(){
+        $('nav ul .serv-show').toggleClass("show1");
+        $('nav ul .second').toggleClass("rotate");
+    });
+    $('nav ul li').click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+</script>
 </body>
+<!--<body>-->
+<!--<div class="sidenav">-->
+<!--    <ul>-->
+<!--        <li> <a th:href="@{/}" class="active">  Book Rental System </a></li>-->
+<!--        <li> <a href="#"> Master Data </a> </li>-->
+<!--        <li> <a th:href="@{/view-authors}">  Author Setup </a> </li>-->
+<!--        <li> <a href="#">  Category Setup </a> </li>-->
+<!--        <li> <a th:href="@{/}">  Customer Setup </a> </li>-->
+<!--        <li> <a  th:href="@{/}">   Book Setup </a> </li>-->
+<!--        <li> <a href="#"> Transcation </a> </li>-->
+<!--        <li> <a href="#"> Rent a Book </a> </li>-->
+<!--        <li> <a href="#"> Return a Book </a> </li>-->
+
+
+<!--    </ul>-->
+
+<!--</div>-->
+
+<!--<div class="main">-->
+
+<!--</div>-->
+<!--</body>-->
 </html>

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org" >
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout/layout">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -48,6 +50,8 @@
 <!--    </div>-->
 <!--</nav>-->
 
+<div layout:fragment="content">
+
 <main class="login-form">
     <div class="cotainer">
         <div class="row justify-content-center">
@@ -88,10 +92,10 @@
             </div>
         </div>
     </div>
-    </div>
 
 </main>
 
+</div>
 
 
 
