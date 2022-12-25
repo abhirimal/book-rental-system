@@ -5,9 +5,12 @@ import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Member;
+import com.abhiyan.bookrentalsystem.model.Role;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
+import com.abhiyan.bookrentalsystem.repository.RoleRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
 import com.abhiyan.bookrentalsystem.service.services.EmailSenderService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +23,16 @@ public class MemberServiceImpl implements MemberService {
 
     private final EmailSenderService emailSenderService;
 
-    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter, EmailSenderService emailSenderService) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final RoleRepo roleRepo;
+
+    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter, EmailSenderService emailSenderService, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepo roleRepo) {
         this.memberRepo = memberRepo;
         this.memberDtoConverter = memberDtoConverter;
         this.emailSenderService = emailSenderService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleRepo = roleRepo;
     }
 
     @Override
@@ -44,7 +53,13 @@ public class MemberServiceImpl implements MemberService {
                         .build();
             }
             Member member = memberDtoConverter.dtoToEntity(memberDto);
+            member.setPassword(bCryptPasswordEncoder.encode(memberDto.getPassword()));
+
+            List<Role> role = roleRepo.getAdminRole("ADMIN");
+            member.setRoles(role);
+
             member.setAccountState(AccountState.ACTIVE);
+
             memberRepo.save(member);
             return ResponseDto.builder()
                     .status(true)

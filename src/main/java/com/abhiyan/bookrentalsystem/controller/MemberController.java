@@ -26,7 +26,7 @@ public class MemberController {
     }
 
     @GetMapping("/add-member")
-    public String addBook(Model model){
+    public String addMember(Model model){
         MemberDto memberDto = new MemberDto();
         model.addAttribute("member",memberDto);
         return "member/registerMember";

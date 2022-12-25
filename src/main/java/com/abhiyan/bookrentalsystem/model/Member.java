@@ -32,10 +32,20 @@ public class Member {
 
     private String address;
 
+    private String password;
+
+    private String username;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "account_state")
     private AccountState accountState;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
+
+    @ManyToMany
+    @JoinTable(name="member_role",
+            joinColumns = {@JoinColumn(name = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private List<Role> roles;
 }

@@ -1,14 +1,14 @@
 package com.abhiyan.bookrentalsystem.dto;
 
+import com.abhiyan.bookrentalsystem.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +32,11 @@ public class MemberDto {
 
     @NotBlank(message = "Address is required")
     private String address;
+
+    @NotBlank(message = "Password is required")
+    private String password;
+
+    private String username;
+
+    private List<Role> roles;
 }

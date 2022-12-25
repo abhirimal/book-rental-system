@@ -17,6 +17,9 @@ public class MemberDtoConverter {
         memberDto.setEmail(member.getEmail());
         memberDto.setAddress(member.getAddress());
         memberDto.setMobileNumber(member.getMobileNumber());
+        memberDto.setPassword(member.getPassword());
+//        memberDto.setRoles(member.getRoles());
+        memberDto.setUsername(member.getUsername());
         return memberDto;
     }
 
@@ -26,6 +29,8 @@ public class MemberDtoConverter {
         member.setEmail(memberDto.getEmail());
         member.setAddress(memberDto.getAddress());
         member.setMobileNumber(memberDto.getMobileNumber());
+        member.setUsername(memberDto.getUsername());
+//        member.setPassword(memberDto.getPassword());
         return member;
     }
 

@@ -82,6 +82,18 @@
                             <p class="alert alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"> Error </p>
                         </div>
 
+                        <div class="form-group">
+                            <label> Member Password </label>
+                            <input
+                                    type="text"
+                                    name="memberPassword"
+                                    th:field="*{password}"
+                                    class="form-control"
+                                    placeholder="Enter Member Password"
+                            />
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Error </p>
+                        </div>
+
                         <div>
                             <button type="submit" class="btn btn-primary">
                                 Submit
