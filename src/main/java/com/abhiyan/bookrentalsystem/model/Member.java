@@ -1,5 +1,6 @@
 package com.abhiyan.bookrentalsystem.model;
 
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,10 @@ public class Member {
     private String mobileNumber;
 
     private String address;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_state")
+    private AccountState accountState;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;

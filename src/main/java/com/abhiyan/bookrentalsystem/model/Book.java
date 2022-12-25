@@ -1,4 +1,5 @@
 package com.abhiyan.bookrentalsystem.model;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,10 @@ public class Book {
 
     @Column(name = "file_path")
     String filePath;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_state")
+    private AccountState accountState;
 
     @ManyToMany
     @JoinTable(name="author_book",

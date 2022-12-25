@@ -144,7 +144,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAllBooksWithStock() {
-        List<Book> book = bookRepo.findAllBookWithStock();
+        List<Book> book = bookRepo.findAllBookWithStockAndActiveState();
         List<BookDto> bookDtos = bookDtoConverter.entityToDto(book);
         return bookDtos;
     }

@@ -3,6 +3,7 @@ package com.abhiyan.bookrentalsystem.service.impl;
 import com.abhiyan.bookrentalsystem.converter.MemberDtoConverter;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
@@ -27,9 +28,23 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public ResponseDto saveMember(MemberDto memberDto) {
-        Member member = memberDtoConverter.dtoToEntity(memberDto);
+
 
         try{
+            Member existingDeletedMember = memberRepo.findDeletedStateMember(memberDto.getEmail());
+            if(existingDeletedMember!=null){
+                existingDeletedMember.setAccountState(AccountState.ACTIVE);
+                existingDeletedMember.setMobileNumber(memberDto.getMobileNumber());
+                existingDeletedMember.setAddress(memberDto.getAddress());
+                memberRepo.save(existingDeletedMember);
+
+                return ResponseDto.builder()
+                        .status(true)
+                        .message("Member added successfully")
+                        .build();
+            }
+            Member member = memberDtoConverter.dtoToEntity(memberDto);
+            member.setAccountState(AccountState.ACTIVE);
             memberRepo.save(member);
             return ResponseDto.builder()
                     .status(true)
@@ -64,7 +79,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> viewMembers() {
-        List<Member> members = memberRepo.findAll();
+        List<Member> members = memberRepo.findAllActiveMember();
         List<MemberDto> memberDtos = memberDtoConverter.entityToDto(members);
         return memberDtos;
     }
@@ -90,6 +105,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(Integer id) {
-    memberRepo.deleteById(id);
+    memberRepo.softDeleteMemberById(id);
     }
 }
