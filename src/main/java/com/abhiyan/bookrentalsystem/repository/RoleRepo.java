@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface RoleRepo extends JpaRepository<Role, Integer> {
 
-    @Query(nativeQuery = true, value = "SELECT * from role where role_name=?1")
-    List<Role> getAdminRole(String name);
+    @Query(nativeQuery = true, value = "SELECT * from role where role_name='ADMIN'")
+    List<Role> getAdminRole();
+
+    @Query(nativeQuery = true, value = "SELECT * from role where role_name='USER'")
+    List<Role> getUserRole();
 }

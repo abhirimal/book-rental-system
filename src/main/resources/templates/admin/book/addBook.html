@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title> Category </title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <br>
+        <a class="btn btn-primary" th:href="@{/admin/view-books}" role="button" style="float: right"> Back </a>
+
+        <br>
+        <br>
+        <div th:if="${errorMessage}" >
+            <div class="alert alert-danger">
+                <span th:text="${errorMessage}"></span>
+            </div>
+        </div>
+        <br>
+        <h1> Add New Book </h1>
+        <form class="row g-3" th:action="@{/admin/add-book/new}" th:object="${book}" method="POST" enctype="multipart/form-data">
+
+            <div class="col-md-6">
+                <label class="form-label">Enter Book Name</label>
+                <input
+                        type="text"
+                        name="bookName"
+                        th:field="*{name}"
+                        class="form-control"
+                        placeholder="Enter Book Name"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Error </p>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">ISBN</label>
+                <input
+                        type="number"
+                        name="ISBN"
+                        th:field="*{isbn}"
+                        class="form-control"
+                        placeholder="Enter ISBN"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"> Error </p>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Pages</label>
+                <input
+                        type="number"
+                        name="pages"
+                        th:field="*{noOfPages}"
+                        class="form-control"
+                        placeholder="Enter Number of Pages"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfPages')}" th:errors="*{noOfPages}"> Error </p>
+
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Rating</label>
+                <input
+                        type="number"
+                        name="rating"
+                        th:field="*{rating}"
+                        class="form-control"
+                        placeholder="Enter Rating"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"> Error </p>
+
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Enter Stock</label>
+                <input
+                        type="number"
+                        name="stock"
+                        th:field="*{stockCount}"
+                        class="form-control"
+                        placeholder="Enter Stock"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('stockCount')}" th:errors="*{stockCount}"> Error </p>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="col-md-6">
+                <label class="form-label">Category</label>
+                <select class="form-select" th:field="*{categoryId}">
+                    <option selected th:value="${null}">Select Category</option>
+                    <option th:each="categoryDto : ${categoryDto}" th:text="${categoryDto.name}"
+                            th:value="${categoryDto.id}"> </option>
+
+                </select>
+                <!--                <input-->
+                <!--                type="text"-->
+                <!--                name="categoryName"-->
+                <!--                th:field="*{category}"-->
+                <!--                class="form-control"-->
+                <!--                placeholder="Enter Category Name"-->
+                <!--                />-->
+
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"> Error </p>
+
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Author</label>
+                <select class="form-select " size="3" multiple th:field="*{authorId}">
+                    <option selected th:value="${null}">Select Authors</option>
+                    <option th:each="authorDto : ${authorDto}" th:text="${authorDto.name}"
+                            th:value="${authorDto.id}"> </option>
+
+                </select>
+
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"> Error </p>
+
+                <!--                <input-->
+                <!--                        type="text"-->
+                <!--                        name="authorName"-->
+                <!--                        th:field="*{author}"-->
+                <!--                        class="form-control"-->
+                <!--                        placeholder="Enter Author Name"-->
+                <!--                />-->
+            </div>
+
+
+            <div class="col-md-5">
+                <label class="form-label">Published Date</label>
+                <input
+                        type="date"
+                        name="publishedDate"
+                        th:field="*{publishedDate}"
+                        class="form-control"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('publishedDate')}" th:errors="*{publishedDate}"> Error </p>
+
+            </div>
+            <div class="col-md-7">
+                <label class="form-label"> Upload Photo </label>
+                <input
+                        type="file"
+                        class="form-control form-control-sm"
+                        th:field="*{imageFile}"
+
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}"> Error </p>
+
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div >
+                <button type="submit" class="btn btn-primary btn-sm mb-2">Save</button>
+                <button type="reset" class="btn btn-primary btn-sm mb-2">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title> Students </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <h1> Returned Book Transaction History </h1>
+        </div>
+
+        <div class="alert alert-success" role="alert"
+             th:if="${message}"> <strong>Success!</strong>
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="row" style="float: right">
+            <div class="col-lg-3" >
+                <a th:href="@{/admin/return-book}" class="btn btn-primary btn-sm mb-3"> Return a Book </a>
+            </div>
+
+        </div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"> Book Name </th>
+                <th scope="col"> Member Name </th>
+                <th scope="col"> Code </th>
+                <th scope="col"> Rent Date</th>
+                <th scope="col"> Return Date </th>
+<!--                <th scope="col">Actions</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="returnHistory: ${transaction}">
+                <td th:text="${returnHistory.book.name}"></td>
+                <td th:text="${returnHistory.member.name}"></td>
+                <td th:text="${returnHistory.code}"></td>
+                <td th:text="${returnHistory.fromDate}"></td>
+                <td th:text="${returnHistory.toDate}"></td>
+
+<!--                <td>-->
+<!--                    <a th:href="@{/edit-rent-transaction/{id}(id=${returnHistory.id})}">-->
+<!--                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Update</button>-->
+<!--                    </a>-->
+<!--                    <a th:href="@{/delete-rent-transaction/{id}(id=${returnHistory.id})}">-->
+<!--                        <button type="submit" class="btn btn-danger btn-sm mb-2"> Delete</button>-->
+<!--                    </a>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

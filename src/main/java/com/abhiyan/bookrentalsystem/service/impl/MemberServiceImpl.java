@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
             Member member = memberDtoConverter.dtoToEntity(memberDto);
             member.setPassword(bCryptPasswordEncoder.encode(memberDto.getPassword()));
 
-            List<Role> role = roleRepo.getAdminRole("ADMIN");
+            List<Role> role = roleRepo.getUserRole();
             member.setRoles(role);
 
             member.setAccountState(AccountState.ACTIVE);
@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
             memberRepo.save(member);
             return ResponseDto.builder()
                     .status(true)
-                    .message("Member added successfully")
+                    .message("Member registered successfully. Please log in to access your account.")
                     .build();
         }
         catch (Exception e){
@@ -74,6 +74,13 @@ public class MemberServiceImpl implements MemberService {
                         .message("Member already exists for given email address.")
                         .build();
             }
+                if(e.getMessage().contains("username")){
+                    return ResponseDto.builder()
+                            .status(false)
+                            .message("Member already exists for given username.")
+                            .build();
+                }
+
             else{
                 e.printStackTrace();
                 return ResponseDto.builder()

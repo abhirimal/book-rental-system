@@ -23,7 +23,7 @@
         <div sec:authorize="hasAuthority('ADMIN')">
             This content is only shown to administrators.
         </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
+        <div sec:authorize="hasAuthority('USER')">
             This content is only shown to users.
         </div>
         <div style="float: right">

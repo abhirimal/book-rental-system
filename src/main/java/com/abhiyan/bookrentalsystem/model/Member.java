@@ -16,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 
 @Table(name="member",uniqueConstraints = {
-        @UniqueConstraint(name = "email",columnNames = "email")
+        @UniqueConstraint(name = "email",columnNames = {"email"}),
+        @UniqueConstraint(name = "username", columnNames = {"username"})
 })
 public class Member {
 
@@ -43,7 +44,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="member_role",
             joinColumns = {@JoinColumn(name = "member_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})

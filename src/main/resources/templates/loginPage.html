@@ -51,7 +51,14 @@
 <!--</nav>-->
 
 <div layout:fragment="content">
+<br>
+    <br>
+    <div class="alert alert-success" role="alert"
+         th:if="${message}"> <strong>Success!</strong>
+        <span th:text="${message}"></span>
+    </div>
 
+    <br>
 <main class="login-form">
     <div class="cotainer">
         <div class="row justify-content-center">
@@ -82,8 +89,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-                                <a href="#" class="btn btn-link">
-                                    Forgot Your Password?
+                                <a th:href="@{/register-member}" class="btn btn-link">
+                                    Don't have an account? Register!
                                 </a>
                             </div>
                     </form>

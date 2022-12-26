@@ -18,7 +18,7 @@
         <!--        </div>-->
 
         <div class="col-sm-3">
-            <div th:insert="fragments/sidebar.html"></div>
+            <div th:insert="fragments/adminsidebar.html"></div>
 
             <div sec:authorize="hasAuthority('ADMIN')">
                 <div th:insert="fragments/adminSidebar.html"></div>

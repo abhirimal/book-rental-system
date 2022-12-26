@@ -33,6 +33,6 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
 
     @Query(nativeQuery = true, value = "select *\n" +
             "from category c\n" +
-            "where account_state='ACTIVE' lower(c.name) like concat(lower(?1), '%')")
-    List<Category> findAllByName(String CategoryName);
+            "where account_state='ACTIVE' and lower(c.name) like concat(lower(?1), '%')")
+    List<Category> findAllByName(String categoryName);
 }
