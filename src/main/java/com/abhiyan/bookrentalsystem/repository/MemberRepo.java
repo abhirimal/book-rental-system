@@ -35,4 +35,5 @@ public interface MemberRepo extends JpaRepository <Member,Integer> {
     @Query(nativeQuery = true, value = "SELECT * from member where username=?1")
     Member findMemberByUsername(String username);
 
+
 }

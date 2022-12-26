@@ -34,9 +34,10 @@ public class MemberDto {
     private String address;
 
     @NotBlank(message = "Password is required")
+    @Pattern(regexp ="^[a-zA-z0-9]{8,}$",message = "Password should be of 8 digits")
     private String password;
 
-
+    @Pattern(regexp ="^[a-zA-z]{6,}$",message = "Username should be of 6 digits")
     private String username;
 
     private List<Role> roles;

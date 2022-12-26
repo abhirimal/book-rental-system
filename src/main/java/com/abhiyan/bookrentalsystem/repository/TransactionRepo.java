@@ -22,4 +22,14 @@ public interface TransactionRepo extends JpaRepository<Transaction,Integer> {
     @Query(nativeQuery = true, value="select code from transaction where rent_type='RENT'")
     List<String> allCode();
 
+    @Query(nativeQuery = true, value="SELECT * from transaction where rent_type='RENT'" +
+            "and member_id=?1 ")
+    List<Transaction> findTransactionListByMemberId(Integer id);
+
+    @Query(nativeQuery = true, value="SELECT * from transaction where member_id=?1 ")
+    Transaction findTransactionByMemberId(Integer id);
+
+    @Query(nativeQuery = true, value="SELECT * from transaction where rent_type='RETURN'" +
+            "and member_id=?1 ")
+    List<Transaction> findReturnedBookTransactionListByMemberId(Integer id);
 }

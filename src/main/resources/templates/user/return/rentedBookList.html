@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title> Students </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container">
+        <br>
+        <div class="row">
+            <h1> Rented Books Transaction History</h1>
+        </div>
+
+        <div class="row" style="float: right">
+
+
+        </div>
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"> Book Name </th>
+                <th scope="col"> Code </th>
+                <th scope="col"> Rent Date</th>
+                <th scope="col"> Return Date </th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rentHistory: ${transaction}">
+                <td th:text="${rentHistory.book.name}"></td>
+                <td th:text="${rentHistory.code}"></td>
+                <td th:text="${rentHistory.fromDate}"></td>
+                <td th:text="${rentHistory.toDate}"></td>
+
+                <td>
+                    <a th:href="@{/user/return-book/{id}(id=${rentHistory.id})}">
+                        <button type="submit" class="btn btn-primary btn-sm mb-2"> Return </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

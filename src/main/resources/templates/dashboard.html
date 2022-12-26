@@ -13,24 +13,27 @@
 <body>
 <div layout:fragment="content">
 
+    <br>
+    <br>
+
     <div class="row">
 
-        <h1> Welcome to dashboard </h1>
+<!--        <div sec:authorize="isAuthenticated()">-->
+<!--            This content is only shown to authenticated users.-->
+<!--        </div>-->
 
-        <div sec:authorize="isAuthenticated()">
-            This content is only shown to authenticated users.
-        </div>
         <div sec:authorize="hasAuthority('ADMIN')">
-            This content is only shown to administrators.
+            <h1> Hello <span sec:authentication="name">Bob</span>, Welcome to your dashboard </h1>
         </div>
+
         <div sec:authorize="hasAuthority('USER')">
-            This content is only shown to users.
+            <h1> Hello <span sec:authentication="name">Bob</span>, Welcome to your dashboard </h1>
         </div>
-        <div style="float: right">
-            Logged user: <span sec:authentication="name">Bob</span>
-            Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+        <div >
+            Your Role: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
         </div>
     </div>
+
 
 
 
