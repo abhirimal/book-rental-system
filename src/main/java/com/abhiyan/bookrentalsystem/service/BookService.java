@@ -29,4 +29,6 @@ public interface BookService {
     BookDto viewBookDetail(int id) throws IOException;
 
     List<Book> searchBook(String bookName);
+
+    Book findBookById(int id);
 }

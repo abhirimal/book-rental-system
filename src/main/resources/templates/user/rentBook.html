@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://wwww.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title> Category </title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <br>
+        <a class="btn btn-primary" th:href="@{/user/view-book}" role="button" style="float: right"> Back </a>
+        <br>
+        <h1> Rent Book </h1>
+        <br>
+        <form class="row g-3" th:action="@{/user/rent-book/new/{id}(id=${book.id})}" th:object="${rent}" method="POST">
+
+            <table class="table">
+                <tr>
+                    <tb> Book Name </tb>
+                </tr>
+                <tr th:each="book: ${book}">
+                    <th scope="row" th:text="${book.name}"></th>
+                </tr>
+            </table>
+
+
+            <br>
+            <div class="col-md-6">
+                <label class="form-label">Number Of Days</label>
+                <input
+                        type="number"
+                        name="pages"
+                        th:field="*{noOfDays}"
+                        class="form-control"
+                        placeholder="Enter Number of Days"
+                />
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfDays')}" th:errors="*{noOfDays}"> Error </p>
+
+            </div>
+
+            <div class="col-md-6">
+
+
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <div >
+                <button type="submit" class="btn btn-primary btn-sm mb-2">Save</button>
+                <button type="reset" class="btn btn-primary btn-sm mb-2">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

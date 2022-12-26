@@ -14,9 +14,11 @@ import com.abhiyan.bookrentalsystem.service.impl.AuthorServiceImpl;
 import com.abhiyan.bookrentalsystem.service.impl.BookServiceImpl;
 import com.abhiyan.bookrentalsystem.service.CategoryService;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/admin")
 @Controller
 public class BookController {
@@ -122,6 +125,11 @@ public class BookController {
                              BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) throws ParseException, IOException {
         System.out.println("inside update controller");
         if ((bindingResult.hasErrors())){
+            System.out.println("Something went wrong");
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors ) {
+                log.error(error.getDefaultMessage());
+            }
             List<Author> auth = authorService.getAllAuthors();
             List<AuthorDto> authorDto = authorDtoConverter.entityToDto(auth);
             List<Category> categories = categoryService.viewCategories();

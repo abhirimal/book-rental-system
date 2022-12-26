@@ -25,7 +25,7 @@
         <br>
 
 
-        <form class="row g-3" th:action="@{/admin/view-rent-history}" th:value="${code}" method="get"  >
+        <form class="row g-3" th:action="@{/dashboard}" th:value="${code}" method="get"  >
 
             <div class="col-md-12">
                 <p class="font-weight-normal"> The transaction code is : </p>
@@ -37,10 +37,10 @@
             <br>
             <br>
             <div class="col-md-12">
-                <p class="font-weight-normal"> Provide the code to the customer. Thank You. </p>
+                <p class="font-weight-normal"> Please provide the code when you return the book. Thank You. </p>
             </div>
 
-                <button type="submit" class="btn btn-primary btn-lg mb-3" > Ok </button>
+            <button type="submit" class="btn btn-primary btn-lg mb-3" > Ok </button>
 
         </form>
     </div>

@@ -36,6 +36,7 @@ public class MemberDto {
     @NotBlank(message = "Password is required")
     private String password;
 
+
     private String username;
 
     private List<Role> roles;

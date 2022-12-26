@@ -30,7 +30,7 @@ public class MemberController {
     public String addMember(Model model){
         MemberDto memberDto = new MemberDto();
         model.addAttribute("member",memberDto);
-        return "admin/registerPage";
+        return "registerPage";
     }
 
     @PostMapping("/register-member/new")

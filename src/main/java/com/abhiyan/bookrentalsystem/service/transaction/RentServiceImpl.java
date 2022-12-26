@@ -37,7 +37,7 @@ public class RentServiceImpl implements RentService {
     public String rentBook(TransactionDto transactionDto) {
         Transaction transaction =new Transaction();
 
-        transaction.setCode(transactionDto.getCode());
+//        transaction.setCode(transactionDto.getCode());
         transaction.setNoOfDays(transactionDto.getNoOfDays());
 
         GenerateTransactionCode generateTransactionCode = new GenerateTransactionCode();
@@ -80,6 +80,45 @@ public class RentServiceImpl implements RentService {
     @Override
     public TransactionDto updateRentBook(Integer id, TransactionDto transactionDto) {
         return null;
+    }
+
+    // rent book by customer with customer username
+
+    public String rentBookByCustomer(Integer id,TransactionDto transactionDto, String username) {
+        Transaction transaction =new Transaction();
+
+        transaction.setNoOfDays(transactionDto.getNoOfDays());
+
+        GenerateTransactionCode generateTransactionCode = new GenerateTransactionCode();
+        String code = generateTransactionCode.generateTransactionCode();
+        transaction.setCode(code);
+
+        LocalDate fromDate = LocalDate.now();
+        transaction.setFromDate(fromDate);
+
+        LocalDate toDate = fromDate.plusDays(transaction.getNoOfDays());
+        transaction.setToDate(toDate);
+
+        Book book = bookRepo.findById(id).orElse(null);
+        transaction.setBook(book);
+
+        Member member = memberRepo.findMemberByUsername(username);
+        transaction.setMember(member);
+
+        transaction.setRentType(RentType.RENT);
+
+        transactionRepo.save(transaction);
+
+
+        // decreasing stock count when rent
+        Book book1 = bookRepo.findById(id).orElse(null);
+        Integer stock = book1.getStockCount();
+        stock = stock-1;
+        book1.setStockCount(stock);
+        bookRepo.save(book1);
+
+        return code;
+
     }
 
 }

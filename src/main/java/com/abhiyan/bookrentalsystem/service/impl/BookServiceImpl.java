@@ -208,4 +208,8 @@ public class BookServiceImpl implements BookService {
     public List<Book> searchBook(String bookName) {
         return bookRepo.findAllByName(bookName);
     }
+
+    public Book findBookById(int id){
+        return bookRepo.findById(id).orElse(null);
+    }
 }
