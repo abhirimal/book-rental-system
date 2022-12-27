@@ -153,11 +153,11 @@ public class BookServiceImpl implements BookService {
         book.setRating(bookDto.getRating());
         book.setNoOfPages(bookDto.getNoOfPages());
 
-        MultipartFile multipartFile = bookDto.getImageFile();
-        String filePath = fileStorageUtils.storeFile(multipartFile);
-        book.setFilePath(filePath);
+//        MultipartFile multipartFile = bookDto.getImageFile();
+//        String filePath = fileStorageUtils.storeFile(multipartFile);
+//        book.setFilePath(filePath);
 
-        book.setFilePath(book.getFilePath());
+//        book.setFilePath(book.getFilePath());
         book.setStockCount(bookDto.getStockCount());
 
         StringToDate sDate = new StringToDate();

@@ -16,17 +16,15 @@
 
   <div class="container">
     <br>
-    <br>
     <a class="btn btn-primary" th:href="@{/user/view-book}" role="button" style="float: right"> Back </a>
     <br>
     <h1> Book Details </h1>
     <br>
-    <br>
 
+<!--    <form class="row g-3" th:object="${book}"  >-->
+    <div class="row g-3 alert alert-secondary" th:object="${book}">
 
-    <form class="row g-3" th:object="${book}"  >
-
-      <div class="col-md-4">
+      <div class="col-md-4" >
         <p class="font-weight-bold"> Book Name </p>
         <p class="font-weight-normal" th:text="${book.name}" > </p>
       </div>
@@ -71,7 +69,9 @@
       <br>
       <div >
       </div>
-    </form>
+      </div>
+<!--    </form>-->
+
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-package com.abhiyan.bookrentalsystem.service.services;
+package com.abhiyan.bookrentalsystem.security;
 
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;

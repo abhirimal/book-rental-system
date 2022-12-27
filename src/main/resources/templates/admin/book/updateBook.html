@@ -135,21 +135,21 @@
                 <p class="alert alert-danger" th:if="${#fields.hasErrors('publishedDate')}" th:errors="*{publishedDate}"> Error </p>
 
             </div>
-            <div class="col-md-7">
-                <label class="form-label"> Upload Photo </label>
-                <input
-                        type="file"
-                        class="form-control form-control-sm"
-                        th:field="*{imageFile}"
-                />
-            </div>
+<!--            <div class="col-md-7">-->
+<!--                <label class="form-label"> Upload Photo </label>-->
+<!--                <input-->
+<!--                        type="file"-->
+<!--                        class="form-control form-control-sm"-->
+<!--                        th:field="*{imageFile}"-->
+<!--                />-->
+<!--            </div>-->
 
             <br>
             <br>
             <br>
             <br>
 
-            <div >
+            <div class="col-md-10">
                 <button type="submit" class="btn btn-primary btn-sm mb-2">Save</button>
                 <button type="reset" class="btn btn-primary btn-sm mb-2">Reset</button>
             </div>

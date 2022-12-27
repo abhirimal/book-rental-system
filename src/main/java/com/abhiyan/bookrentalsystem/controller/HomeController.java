@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class HomeController {
@@ -62,7 +63,10 @@ public class HomeController {
         return "loginPage";
     }
     @GetMapping("/dashboard")
-    public String viewDashboard(){
+    public String viewDashboard(Model model, Principal principal){
+        String username = principal.getName();
+        MemberDto member = memberService.viewMemberByUsername(username);
+        model.addAttribute("member",member);
         return "dashboard";
     }
 

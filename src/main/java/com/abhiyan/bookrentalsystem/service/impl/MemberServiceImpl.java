@@ -134,4 +134,11 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> searchMember(String memberName) {
         return memberRepo.findAllByName(memberName);
     }
+
+    @Override
+    public MemberDto viewMemberByUsername(String username){
+        Member member = memberRepo.findMemberByUsername(username);
+        MemberDto memberDto = memberDtoConverter.entityToDto(member);
+        return  memberDto;
+    }
 }

@@ -14,16 +14,13 @@
 <div layout:fragment="content">
 
     <br>
-    <br>
 
-    <div class="row">
+    <div class="container">
 
-<!--        <div sec:authorize="isAuthenticated()">-->
-<!--            This content is only shown to authenticated users.-->
-<!--        </div>-->
+        <br>
 
         <div sec:authorize="hasAuthority('ADMIN')">
-            <h1> Hello <span sec:authentication="name">Bob</span>, Welcome to your dashboard </h1>
+            <h3> Hello <span sec:authentication="name">Bob</span>, Welcome to your dashboard </h3>
         </div>
 
         <div sec:authorize="hasAuthority('USER')">
@@ -32,6 +29,48 @@
         <div >
             Your Role: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
         </div>
+
+        <br>
+
+        <h1> Your Information </h1>
+        <br>
+
+
+        <div class="row g-3 alert alert-secondary" th:object="${member}">
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Full Name </p>
+                <p class="font-weight-normal" th:text="${member.name}"></p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Username </p>
+                <p class="font-weight-normal" th:text="${member.username}"></p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Mobile Number </p>
+                <p class="font-weight-normal" th:text="${member.mobileNumber}"></p>
+            </div>
+
+
+            <div class="col-md-6">
+                <p class="font-weight-bold"> Address </p>
+                <p class="font-weight-normal" th:text="${member.address}"></p>
+            </div>
+
+
+            <br>
+
+            <div>
+            </div>
+        </div>
+
+<!--        <div sec:authorize="isAuthenticated()">-->
+<!--            This content is only shown to authenticated users.-->
+<!--        </div>-->
+
+
     </div>
 
 

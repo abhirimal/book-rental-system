@@ -20,4 +20,6 @@ public interface MemberService {
     void deleteMember(Integer id);
 
     List<Member> searchMember(String memberName);
+
+    public MemberDto viewMemberByUsername(String username);
 }

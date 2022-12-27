@@ -1,6 +1,6 @@
 package com.abhiyan.bookrentalsystem.security_config;
 
-import com.abhiyan.bookrentalsystem.service.services.CustomUserDetailsService;
+import com.abhiyan.bookrentalsystem.security.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/user/**").hasAnyAuthority("USER")
                 .antMatchers("/dashboard").hasAnyAuthority("USER","ADMIN")
                 .and()
                 .formLogin().loginPage("/login")
