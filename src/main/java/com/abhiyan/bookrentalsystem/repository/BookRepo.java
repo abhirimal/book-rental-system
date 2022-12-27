@@ -28,6 +28,7 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
             "account_state='DELETED' ")
     Book findDeletedStateBook(Long isbn);
 
+    // finds any book starting with given parameter, example a% Finds any values that start with "a"
     @Query(nativeQuery = true, value = "select *\n" +
             "from tbl_book b\n" +
             "where account_state='ACTIVE' and lower(b.name) like concat(lower(?1), '%')")

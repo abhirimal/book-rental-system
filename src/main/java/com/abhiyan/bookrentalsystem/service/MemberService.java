@@ -11,6 +11,8 @@ public interface MemberService {
 
     ResponseDto saveMember(MemberDto memberDto);
 
+    ResponseDto saveAdmin(MemberDto memberDto);
+
     List<MemberDto> viewMembers();
 
     MemberDto editMember(Integer id);

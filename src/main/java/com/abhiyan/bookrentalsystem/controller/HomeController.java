@@ -31,7 +31,7 @@ public class HomeController {
     public String addMember(Model model){
         MemberDto memberDto = new MemberDto();
         model.addAttribute("member",memberDto);
-        return "registerPage";
+        return "userRegisterPage";
     }
 
     @PostMapping("/register-member/new")
@@ -48,7 +48,7 @@ public class HomeController {
             return "redirect:/login";
         }
         model.addAttribute("errorMessage",responseDto.getMessage());
-        return "registerPage";
+        return "userRegisterPage";
 
     }
 
@@ -73,5 +73,31 @@ public class HomeController {
     @GetMapping("/403")
     public String viewErrorPage(){
         return "accessDeniedPage";
+    }
+
+
+    @GetMapping("/register-admin")
+    public String addAdmin(Model model){
+        MemberDto memberDto = new MemberDto();
+        model.addAttribute("member",memberDto);
+        return "adminRegisterPage";
+    }
+
+    @PostMapping("/register-admin/new")
+    public String addNewAdmin(@Valid @ModelAttribute("member") MemberDto memberDto, BindingResult bindingResult,
+                               Model model, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("memberDto",memberDto);
+            return "adminRegisterPage";
+        }
+        ResponseDto responseDto = memberService.saveAdmin(memberDto);
+        if(responseDto.getStatus()){
+            redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
+            return "redirect:/login";
+        }
+        model.addAttribute("errorMessage",responseDto.getMessage());
+        return "AdminRegisterPage";
+
     }
 }

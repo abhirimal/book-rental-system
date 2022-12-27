@@ -41,7 +41,7 @@ public class MemberController {
             model.addAttribute("memberDto",memberDto);
             return "admin/registerPage";
         }
-        ResponseDto responseDto =         memberService.saveMember(memberDto);
+        ResponseDto responseDto = memberService.saveMember(memberDto);
         if(responseDto.getStatus()){
             redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
             return "redirect:/admin/login";

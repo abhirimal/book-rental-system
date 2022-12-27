@@ -100,6 +100,64 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public ResponseDto saveAdmin(MemberDto memberDto) {
+
+
+
+        try{
+            Member existingDeletedMember = memberRepo.findDeletedStateMember(memberDto.getEmail());
+            if(existingDeletedMember!=null){
+                existingDeletedMember.setAccountState(AccountState.ACTIVE);
+                existingDeletedMember.setMobileNumber(memberDto.getMobileNumber());
+                existingDeletedMember.setAddress(memberDto.getAddress());
+                memberRepo.save(existingDeletedMember);
+
+                return ResponseDto.builder()
+                        .status(true)
+                        .message("Admin added successfully")
+                        .build();
+            }
+            Member member = memberDtoConverter.dtoToEntity(memberDto);
+            member.setPassword(bCryptPasswordEncoder.encode(memberDto.getPassword()));
+
+            List<Role> role = roleRepo.getAdminRole();
+            member.setRoles(role);
+
+            member.setAccountState(AccountState.ACTIVE);
+
+            memberRepo.save(member);
+            return ResponseDto.builder()
+                    .status(true)
+                    .message("Admin registered successfully. Please log in to access your account.")
+                    .build();
+        }
+        catch (Exception e){
+
+            if(e.getMessage().contains("email")){
+                return ResponseDto.builder()
+                        .status(false)
+                        .message("Admin already exists for given email address.")
+                        .build();
+            }
+            if(e.getMessage().contains("username")){
+                return ResponseDto.builder()
+                        .status(false)
+                        .message("Admin already exists for given username.")
+                        .build();
+            }
+
+            else{
+                e.printStackTrace();
+                return ResponseDto.builder()
+                        .status(false)
+                        .message(e.getMessage())
+                        .build();
+            }
+
+        }
+    }
+
+    @Override
     public List<MemberDto> viewMembers() {
         List<Member> members = memberRepo.findAllActiveMember();
         List<MemberDto> memberDtos = memberDtoConverter.entityToDto(members);

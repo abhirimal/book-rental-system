@@ -97,7 +97,11 @@ public class UserController {
         return "user/return/returnedBookList";
     }
 
-
-
+    @PostMapping("/search-book")
+    public String searchBook(@RequestParam(value="bookName", required=true) String bookName, Model model){
+        List<Book> foundBook = bookService.searchBook(bookName);
+        model.addAttribute("book",foundBook);
+        return "user/book/viewBook";
+    }
 
 }
