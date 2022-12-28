@@ -1,5 +1,7 @@
 package com.abhiyan.bookrentalsystem.security;
 
+import com.abhiyan.bookrentalsystem.dto.ResponseDto;
+import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Member;
 import com.abhiyan.bookrentalsystem.repository.BookRepo;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
@@ -28,6 +30,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member userByUserName = memberRepo.findMemberByUsername(username);
+        AccountState accountState = userByUserName.getAccountState();
+        if(accountState==AccountState.DELETED){
+
+                    throw new UsernameNotFoundException("User doesn't exist.");
+        }
 
 //        List<String> authorityList = userByUserName.getRoles().stream().map(role -> (role.getName())).collect(Collectors.toList());
 

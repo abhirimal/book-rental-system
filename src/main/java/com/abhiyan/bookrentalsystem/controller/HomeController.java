@@ -58,7 +58,9 @@ public class HomeController {
     }
 
     @GetMapping("/login-error")
-    public String userLogin(Model model){
+    public String userLogin(Model model,RedirectAttributes redirectAttributes){
+        ResponseDto responseDto;
+//        redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
         model.addAttribute("loginError",true);
         return "loginPage";
     }
@@ -70,10 +72,11 @@ public class HomeController {
         return "dashboard";
     }
 
-    @GetMapping("/403")
-    public String viewErrorPage(){
-        return "accessDeniedPage";
-    }
+    // spring le afai handle garcha
+//    @GetMapping("/403")
+//    public String viewErrorPage(){
+//        return "error/accessDeniedPage";
+//    }
 
 
     @GetMapping("/register-admin")
