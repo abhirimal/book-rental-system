@@ -33,8 +33,6 @@
         <br>
 
         <h1> Your Information </h1>
-        <br>
-
 
         <div class="row g-3 alert alert-secondary" th:object="${member}">
 
@@ -66,9 +64,9 @@
             </div>
         </div>
 
-<!--        <div sec:authorize="isAuthenticated()">-->
-<!--            This content is only shown to authenticated users.-->
-<!--        </div>-->
+        <div sec:authorize="hasAuthority('USER')">
+
+        </div>
 
 
     </div>

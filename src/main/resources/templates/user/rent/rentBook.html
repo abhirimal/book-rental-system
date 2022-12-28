@@ -41,8 +41,9 @@
                         th:field="*{noOfDays}"
                         class="form-control"
                         placeholder="Enter Number of Days"
+                        required autofocus
                 />
-                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfDays')}" th:errors="*{noOfDays}"> Error </p>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('noOfDays')}" th:errors="*{noOfDays}" req> Error </p>
 
             </div>
 

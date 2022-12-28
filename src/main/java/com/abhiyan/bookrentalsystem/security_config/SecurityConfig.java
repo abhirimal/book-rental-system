@@ -40,9 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
-                .failureUrl("/login-error")
-                .and()
-                .exceptionHandling().accessDeniedPage("/403");
-    }
+                .failureUrl("/login-error");}
 
 }

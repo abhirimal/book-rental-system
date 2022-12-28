@@ -33,7 +33,7 @@
                     <option selected >Select Transaction Code</option>
 
                     <option th:each="code : ${code}" th:text="${code}"
-                            th:value="${code}"> </option>
+                            th:value="${code}" > </option>
                 </select>
 <!--                <p class="alert alert-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"> Error </p>-->
 

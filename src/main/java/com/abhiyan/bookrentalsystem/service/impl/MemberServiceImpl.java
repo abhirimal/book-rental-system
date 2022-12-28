@@ -60,6 +60,12 @@ public class MemberServiceImpl implements MemberService {
 
             member.setAccountState(AccountState.ACTIVE);
 
+            emailSenderService.sendEmail(member.getEmail(),
+                    "Hello "+member.getName()+", \n" +
+                            "Your account has been created in Book Rental System \n"+
+                            "Thank You.",
+                    "Account created in Book Rental");
+
             memberRepo.save(member);
             return ResponseDto.builder()
                     .status(true)
@@ -91,12 +97,8 @@ public class MemberServiceImpl implements MemberService {
 
         }
 
-        //send email
-//        emailSenderService.sendEmail(member.getEmail(),
-//                "Hello "+member.getName()+", \n" +
-//                        "Your account has been created in Book Rental System \n"+
-//                        "Thank You.",
-//                "Account created in Book Rental");
+//        send email
+
     }
 
     @Override
