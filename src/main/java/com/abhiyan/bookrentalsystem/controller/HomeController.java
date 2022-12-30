@@ -2,12 +2,12 @@ package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.service.MemberService;
+import org.springframework.boot.Banner;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -40,7 +40,7 @@ public class HomeController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberDto",memberDto);
-            return "registerPage";
+            return "userRegisterPage";
         }
         ResponseDto responseDto = memberService.saveMember(memberDto);
         if(responseDto.getStatus()){
@@ -58,10 +58,15 @@ public class HomeController {
     }
 
     @GetMapping("/login-error")
-    public String userLogin(Model model,RedirectAttributes redirectAttributes){
-        ResponseDto responseDto;
-//        redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
-        model.addAttribute("loginError",true);
+    public String userLogin(Model model,
+                            RedirectAttributes redirectAttributes) throws UsernameNotFoundException{
+
+        try{
+        redirectAttributes.addFlashAttribute("loginError","User is gg");
+        model.addAttribute("loginError",true);}
+        catch (Exception e){
+            redirectAttributes.addFlashAttribute("loginError",e.getMessage());
+        }
         return "loginPage";
     }
     @GetMapping("/dashboard")
@@ -100,7 +105,35 @@ public class HomeController {
             return "redirect:/login";
         }
         model.addAttribute("errorMessage",responseDto.getMessage());
-        return "AdminRegisterPage";
+        return "adminRegisterPage";
 
     }
+
+    @GetMapping("/forget-password")
+    public String forgetPasswordLandingPage(){
+        return "forgetPassword";
+    }
+
+    @PostMapping("/forget-password-useremail")
+    public String forgetPasswordSubmitEmail(@RequestParam(value = "email", required = true) String email,
+                                            Model model, RedirectAttributes redirectAttributes){
+        memberService.resetPassword(email);
+        return "forgetPassword";
+    }
+
+    @GetMapping("/verify-reset-password/{id}/{token}")
+    public String verifyLink(@PathVariable Integer id, @PathVariable String token,
+                             RedirectAttributes redirectAttributes, Model model){
+
+        ResponseDto responseDto = memberService.verifyResetLink(id, token);
+
+        if(responseDto.getStatus()){
+            model.addAttribute("message",responseDto.getMessage());
+        }
+        model.addAttribute("errorMessage",responseDto.getMessage());
+
+        return "home";
+    }
+
+
 }

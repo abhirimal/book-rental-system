@@ -6,9 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberRepo extends JpaRepository <Member,Integer> {
+
+    Member findByEmail(String email);
 
     @Query(nativeQuery = true, value = "SELECT * from member where account_state='ACTIVE'")
     List<Member> findAllActiveMember();
@@ -34,6 +38,9 @@ public interface MemberRepo extends JpaRepository <Member,Integer> {
 
     @Query(nativeQuery = true, value = "SELECT * from member where username=?1")
     Member findMemberByUsername(String username);
+
+//    @Query(nativeQuery = true, value = "SELECT id from member where username=?1")
+//    Integer id findMemberIdByUsername(String username);
 
 
 }

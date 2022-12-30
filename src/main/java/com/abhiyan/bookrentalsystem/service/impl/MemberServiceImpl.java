@@ -5,8 +5,10 @@ import com.abhiyan.bookrentalsystem.dto.MemberDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.enums.AccountState;
 import com.abhiyan.bookrentalsystem.model.Member;
+import com.abhiyan.bookrentalsystem.model.PasswordResetCode;
 import com.abhiyan.bookrentalsystem.model.Role;
 import com.abhiyan.bookrentalsystem.repository.MemberRepo;
+import com.abhiyan.bookrentalsystem.repository.PasswordResetCodeRepo;
 import com.abhiyan.bookrentalsystem.repository.RoleRepo;
 import com.abhiyan.bookrentalsystem.service.MemberService;
 import com.abhiyan.bookrentalsystem.service.services.EmailSenderService;
@@ -21,18 +23,24 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepo memberRepo;
     private final MemberDtoConverter memberDtoConverter;
 
+    private final com.abhiyan.bookrentalsystem.service.services.PasswordResetCode passwordResetCode;
+
     private final EmailSenderService emailSenderService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final RoleRepo roleRepo;
 
-    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter, EmailSenderService emailSenderService, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepo roleRepo) {
+    private final PasswordResetCodeRepo passwordResetCodeRepo;
+
+    public MemberServiceImpl(MemberRepo memberRepo, MemberDtoConverter memberDtoConverter, com.abhiyan.bookrentalsystem.service.services.PasswordResetCode passwordResetCode, EmailSenderService emailSenderService, BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepo roleRepo, PasswordResetCodeRepo passwordResetCodeRepo) {
         this.memberRepo = memberRepo;
         this.memberDtoConverter = memberDtoConverter;
+        this.passwordResetCode = passwordResetCode;
         this.emailSenderService = emailSenderService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.roleRepo = roleRepo;
+        this.passwordResetCodeRepo = passwordResetCodeRepo;
     }
 
     @Override
@@ -201,4 +209,40 @@ public class MemberServiceImpl implements MemberService {
         MemberDto memberDto = memberDtoConverter.entityToDto(member);
         return  memberDto;
     }
+
+    @Override
+    public void resetPassword(String email) {
+        Member member = memberRepo.findByEmail(email);
+        String uniqueCode = this.passwordResetCode.generatePasswordResetCode();
+
+        PasswordResetCode passwordResetCode = new PasswordResetCode();
+        passwordResetCode.setUserId(member.getId());
+        passwordResetCode.setResetCode(uniqueCode);
+        passwordResetCodeRepo.save(passwordResetCode);
+
+        emailSenderService.sendEmail(member.getEmail(),
+                "This is your password reset link \n" +
+                        "Please click the link below to reset your link \n" +
+                        "localhost:8080/verify-rest-password/"+member.getId()+"/"+uniqueCode,
+                "Reset Your Password");
+
+    }
+
+    public ResponseDto verifyResetLink(Integer id, String token){
+
+        PasswordResetCode existingToken = passwordResetCodeRepo.findByResetCode(token);
+
+        if(existingToken!=null){
+            return ResponseDto.builder()
+                    .message("Reset link verified")
+                    .status(true)
+                    .build();
+        }
+
+        return ResponseDto.builder()
+                .message("Reset link is not correct. ")
+                .status(false)
+                .build();
+    }
+
 }
