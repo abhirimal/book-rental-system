@@ -1,16 +1,20 @@
 package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
+import com.abhiyan.bookrentalsystem.dto.NewPasswordRequestDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.service.MemberService;
+import org.springframework.boot.Banner;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.security.Principal;
 
 @Controller
@@ -40,7 +44,7 @@ public class HomeController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberDto",memberDto);
-            return "registerPage";
+            return "userRegisterPage";
         }
         ResponseDto responseDto = memberService.saveMember(memberDto);
         if(responseDto.getStatus()){
@@ -58,10 +62,15 @@ public class HomeController {
     }
 
     @GetMapping("/login-error")
-    public String userLogin(Model model,RedirectAttributes redirectAttributes){
-        ResponseDto responseDto;
-//        redirectAttributes.addFlashAttribute("message",responseDto.getMessage());
-        model.addAttribute("loginError",true);
+    public String userLogin(Model model,
+                            RedirectAttributes redirectAttributes) throws UsernameNotFoundException{
+
+        try{
+        redirectAttributes.addFlashAttribute("loginError","User is gg");
+        model.addAttribute("loginError",true);}
+        catch (Exception e){
+            redirectAttributes.addFlashAttribute("loginError",e.getMessage());
+        }
         return "loginPage";
     }
     @GetMapping("/dashboard")
@@ -100,7 +109,62 @@ public class HomeController {
             return "redirect:/login";
         }
         model.addAttribute("errorMessage",responseDto.getMessage());
-        return "AdminRegisterPage";
+        return "adminRegisterPage";
 
     }
+
+    @GetMapping("/forget-password")
+    public String forgetPasswordLandingPage(){
+        return "passwordReset/forgetPassword";
+    }
+
+    @PostMapping("/forget-password-useremail")
+    public String forgetPasswordSubmitEmail(@RequestParam(value = "email", required = true) String email,
+                                            Model model, RedirectAttributes redirectAttributes){
+        memberService.resetPassword(email);
+        return "passwordReset/checkEmail";
+    }
+
+    @GetMapping("/verify-reset-password/{id}/{token}")
+    public String verifyLink(@PathVariable Integer id, @PathVariable String token,
+                             RedirectAttributes redirectAttributes, Model model){
+
+        NewPasswordRequestDto password = new NewPasswordRequestDto();
+        ResponseDto responseDto = memberService.verifyResetLink(id, token);
+
+        if(responseDto.getStatus()){
+            model.addAttribute("userInfo",id);
+            model.addAttribute("message",responseDto.getMessage());
+            model.addAttribute("passwordDto",password);
+            return "passwordReset/enterNewPassword";
+        }
+        model.addAttribute("message",responseDto.getMessage());
+
+        return "passwordReset/forgetPassword";
+    }
+
+    @PostMapping("/new-password-verification/{id}")
+    public String passwordResetVerify(@PathVariable int id,
+                                      @Valid @ModelAttribute("passwordDto") NewPasswordRequestDto passwordDto,
+                                      BindingResult bindingResult,RedirectAttributes redirectAttributes,
+                                      Model model){
+
+        System.out.println(passwordDto.getPassword());
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("passwordDto",passwordDto);
+            model.addAttribute("userInfo",id);
+            return "passwordReset/enterNewPassword";
+        }
+        ResponseDto responseDto = memberService.passwordResetVerify(passwordDto.getPassword(), id);
+
+        if(responseDto.getStatus()){
+            model.addAttribute("password",responseDto.getMessage());
+            return "passwordReset/passwordResetSuccess";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Failed");
+        return "passwordReset/enterNewPassword";
+    }
+
+
 }

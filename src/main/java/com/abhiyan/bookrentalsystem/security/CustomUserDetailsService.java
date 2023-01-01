@@ -45,6 +45,10 @@ public class CustomUserDetailsService implements UserDetailsService {
                   userByUserName.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().toString())).collect(Collectors.toList());
 //        System.out.println(userByUserName.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()));
 
+        System.out.println("inside security");
+        System.out.println(userByUserName.getName());
+        System.out.println(userByUserName.getRoles());
+
         org.springframework.security.core.userdetails.User user =
                 new org.springframework.security.core.userdetails.User(
                         userByUserName.getUsername(), userByUserName.getPassword(), grantedAuthorities);

@@ -24,4 +24,10 @@ public interface MemberService {
     List<Member> searchMember(String memberName);
 
     public MemberDto viewMemberByUsername(String username);
+
+    void resetPassword(String email);
+
+    public ResponseDto verifyResetLink(Integer id, String token);
+
+     ResponseDto passwordResetVerify(String password, Integer id);
 }
