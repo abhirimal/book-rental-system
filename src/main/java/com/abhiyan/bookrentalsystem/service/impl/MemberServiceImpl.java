@@ -223,7 +223,7 @@ public class MemberServiceImpl implements MemberService {
         emailSenderService.sendEmail(member.getEmail(),
                 "This is your password reset link \n" +
                         "Please click the link below to reset your link \n" +
-                        "localhost:8080/verify-rest-password/"+member.getId()+"/"+uniqueCode,
+                        "localhost:8080/verify-reset-password/"+member.getId()+"/"+uniqueCode,
                 "Reset Your Password");
 
     }
@@ -242,6 +242,23 @@ public class MemberServiceImpl implements MemberService {
         return ResponseDto.builder()
                 .message("Reset link is not correct. ")
                 .status(false)
+                .build();
+    }
+
+    @Override
+    public ResponseDto passwordResetVerify(String password, Integer id) {
+        Member member = memberRepo.findById(id).orElse(null);
+        String encryptedPassword = bCryptPasswordEncoder.encode(password);
+        member.setPassword(encryptedPassword);
+        memberRepo.save(member);
+
+        //delete token so it will not be reused again
+        passwordResetCodeRepo.deletePasswordResetCodeByUserId(id);
+        System.out.println("inside delete");
+
+        return ResponseDto.builder()
+                .message("Password changed successfully")
+                .status(true)
                 .build();
     }
 

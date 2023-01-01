@@ -1,5 +1,6 @@
 package com.abhiyan.bookrentalsystem.controller;
 import com.abhiyan.bookrentalsystem.dto.MemberDto;
+import com.abhiyan.bookrentalsystem.dto.NewPasswordRequestDto;
 import com.abhiyan.bookrentalsystem.dto.ResponseDto;
 import com.abhiyan.bookrentalsystem.service.MemberService;
 import org.springframework.boot.Banner;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.security.Principal;
 
 @Controller
@@ -111,28 +115,55 @@ public class HomeController {
 
     @GetMapping("/forget-password")
     public String forgetPasswordLandingPage(){
-        return "forgetPassword";
+        return "passwordReset/forgetPassword";
     }
 
     @PostMapping("/forget-password-useremail")
     public String forgetPasswordSubmitEmail(@RequestParam(value = "email", required = true) String email,
                                             Model model, RedirectAttributes redirectAttributes){
         memberService.resetPassword(email);
-        return "forgetPassword";
+        return "passwordReset/checkEmail";
     }
 
     @GetMapping("/verify-reset-password/{id}/{token}")
     public String verifyLink(@PathVariable Integer id, @PathVariable String token,
                              RedirectAttributes redirectAttributes, Model model){
 
+        NewPasswordRequestDto password = new NewPasswordRequestDto();
         ResponseDto responseDto = memberService.verifyResetLink(id, token);
 
         if(responseDto.getStatus()){
+            model.addAttribute("userInfo",id);
             model.addAttribute("message",responseDto.getMessage());
+            model.addAttribute("passwordDto",password);
+            return "passwordReset/enterNewPassword";
         }
-        model.addAttribute("errorMessage",responseDto.getMessage());
+        model.addAttribute("message",responseDto.getMessage());
 
-        return "home";
+        return "passwordReset/forgetPassword";
+    }
+
+    @PostMapping("/new-password-verification/{id}")
+    public String passwordResetVerify(@PathVariable int id,
+                                      @Valid @ModelAttribute("passwordDto") NewPasswordRequestDto passwordDto,
+                                      BindingResult bindingResult,RedirectAttributes redirectAttributes,
+                                      Model model){
+
+        System.out.println(passwordDto.getPassword());
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("passwordDto",passwordDto);
+            model.addAttribute("userInfo",id);
+            return "passwordReset/enterNewPassword";
+        }
+        ResponseDto responseDto = memberService.passwordResetVerify(passwordDto.getPassword(), id);
+
+        if(responseDto.getStatus()){
+            model.addAttribute("password",responseDto.getMessage());
+            return "passwordReset/passwordResetSuccess";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Failed");
+        return "passwordReset/enterNewPassword";
     }
 
 

@@ -28,4 +28,6 @@ public interface MemberService {
     void resetPassword(String email);
 
     public ResponseDto verifyResetLink(Integer id, String token);
+
+     ResponseDto passwordResetVerify(String password, Integer id);
 }

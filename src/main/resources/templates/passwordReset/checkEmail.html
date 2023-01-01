@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="layout/layout">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title> Reset </title>
+</head>
+<body>
+
+
+<div layout:fragment="content">
+    <br>
+    <a class="btn btn-primary" th:href="@{/forget-password}" role="button" style="float: right"> Back </a>
+    <br>
+    <br>
+    <br>
+
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Email Sent!</h4>
+        <p> If any user exists with the provided email address then you will receive the
+        password resent link. </p>
+        <hr>
+        <p class="mb-0"> If you didn't receive any email then please
+            <a th:href="@{/forget-password}" class="alert-link">try again</a> later</p>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>
